@@ -1,0 +1,11 @@
+targets:
+  JMAN10:
+    filename: JMAN.EXE
+    source_root: src
+    hash:
+      sha256: 243f62328af86447376d1d94a2458bc96e64bc9b0e70c27b1470a4c21a40f2a0
+  JMAN11:
+    filename: JMAN.EXE
+    source_root: src
+    hash:
+      sha256: 95e978a46683babc4cedd9a6d4c730ac3072e4b908061a6b274e9f5af106a090
