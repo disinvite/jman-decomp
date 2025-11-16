@@ -22,14 +22,6 @@ jobs:
           sparse-checkout: win/3.1/msvfw
           path: winsdk
 
-      - name: Move VFW files
-        shell: cmd
-        run: |
-          mkdir DOS
-          cd DOS
-          mkdir vfwdk
-          robocopy C:\winsdk\win\3.1\msvfw C:\DOS\vfwdk /S
-
       - name: Build
         shell: cmd
         run: |
