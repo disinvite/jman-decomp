@@ -3,10 +3,10 @@
 
 class JManApp : public CWinApp {
 public:
-  JManApp();
+	JManApp();
 
-  virtual BOOL InitInstance();
-  int something;
+	virtual BOOL InitInstance();
+	int something;
 };
 
 #endif
