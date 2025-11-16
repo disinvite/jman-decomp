@@ -9,7 +9,7 @@ This project will decompile the Windows 3.1 version of _The Journeyman Project T
 We are aware of the following English-language versions of _JMAN_.
 
 | Version | Date | SHA256 |
-|--|--|--
+|--|--:|--
 | 1.0 | October 2, 1994 | `243f62328af86447376d1d94a2458bc96e64bc9b0e70c27b1470a4c21a40f2a0`
 | 1.1 | December 22, 1994 | `95e978a46683babc4cedd9a6d4c730ac3072e4b908061a6b274e9f5af106a090`
 
