@@ -83,6 +83,12 @@ jobs:
         reccmp-project detect --what original   --search-path jman/10
         reccmp-project detect --what recompiled --search-path build
 
+    - name: Patch reccmp-build.yml with .map path
+      run: |
+        cat reccmp-build.yml
+        echo '    map: build/JMAN.MAP' > reccmp-build.yml
+        cat reccmp-build.yml
+
     - name: Summarize Accuracy
       run: |
         reccmp-reccmp --target JMAN10
