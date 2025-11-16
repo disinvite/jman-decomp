@@ -3,6 +3,10 @@ name: Build
 on: [push, pull_request]
 
 jobs:
+  fetch-deps:
+    name: Download original binaries
+    uses: ./.github/workflows/download.yml
+
   build:
     name: Windows
     runs-on: windows-latest
@@ -39,8 +43,46 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@main
         with:
-          name: Win32
+          name: Win16
           path: |
             build/JMAN.EXE
             build/JMAN.PDB
             build/JMAN.MAP
+
+  verify:
+    name: Verify decomp
+    needs: [build, fetch-deps]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@main
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - uses: actions/download-artifact@main
+      with:
+       name: Win16
+       path: build
+
+    - name: Restore cached original binaries
+      id: cache-original-binaries
+      uses: actions/cache/restore@v4
+      with:
+        enableCrossOsArchive: true
+        path: jman
+        key: jman
+
+    - name: Install python packages
+      shell: bash
+      run: |
+        pip install git+https://github.com/disinvite/reccmp.git@work-image-abstract
+
+    - name: Detect binaries
+      run: |
+        reccmp-project detect --what original   --search-path jman
+        reccmp-project detect --what recompiled --search-path build
+
+    - name: Summarize Accuracy
+      run: |
+        reccmp-reccmp --target JMAN10
