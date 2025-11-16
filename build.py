@@ -75,7 +75,7 @@ class Makefile:
         for obj_file, src_file in self.obj_files.items():
             dep_variable = self.aliases[src_file] + "_DEP"
             # src_relative = src_file.relative_to(root, walk_up=True)
-            src_relative = ".." / src_file.relative_to(src_dir)
+            src_relative = Path("..") / "src" / src_file.relative_to(src_dir)
             obj_relative = obj_file.relative_to(root)
             yield f'{obj_relative}:\t{src_relative} $({dep_variable})\n\t$(CPP) /Fo"$@" $(CFLAGS) $(CPPCREATEPCHFLAG) /c {src_relative}'
             yield "" # Blank between each.
