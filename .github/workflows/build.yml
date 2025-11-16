@@ -80,7 +80,7 @@ jobs:
 
     - name: Detect binaries
       run: |
-        reccmp-project detect --what original   --search-path jman
+        reccmp-project detect --what original   --search-path jman/10
         reccmp-project detect --what recompiled --search-path build
 
     - name: Summarize Accuracy
