@@ -12,6 +12,7 @@ jobs:
 
     - name: Run clang-format
       run: |
+        git config --global color.ui auto
         find src -iname '*.h' -o -iname '*.cpp' | xargs \
         pipx run "clang-format>=17,<18" \
           --style=file \
