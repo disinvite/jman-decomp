@@ -1,0 +1,19 @@
+name: Format
+
+on: [push, pull_request]
+
+jobs:
+  clang-format:
+    name: Clang-Format
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Run clang-format
+      run: |
+        find src -iname '*.h' -o -iname '*.cpp' | xargs \
+        pipx run "clang-format>=17,<18" \
+          --style=file \
+          -i
+        git diff --exit-code
