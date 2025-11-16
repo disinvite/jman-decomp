@@ -29,8 +29,8 @@ jobs:
       - name: Build
         shell: cmd
         run: |
-          call .\msvc152c\bin\msvcvars.bat x86
           python build.py
+          call .\msvc152c\bin\msvcvars.bat x86
           cd build
           nmake -f makefile
 
