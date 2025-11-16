@@ -23,7 +23,7 @@ jobs:
         mkdir -p jman/10
         mkdir -p jman/11
         unzip JMAN10.zip -d jman/10
-        unzip JMAN11.zip -j jman/11
+        unzip JMAN11.zip -d jman/11
 
     - name: Verify files
       run: |
