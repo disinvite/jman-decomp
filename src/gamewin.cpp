@@ -65,6 +65,7 @@ GameWindow::GameWindow(CFrameWnd *cf, int left, int top) {
 GameWindow::~GameWindow() {
 }
 
+// FUNCTION: JMAN10 0x1008211e
 BOOL GameWindow::Setup(CFrameWnd *cf) {
 	navmap_.Setup(navdata_.GetScenesHandle(), navdata_.GetScenesCount());
 

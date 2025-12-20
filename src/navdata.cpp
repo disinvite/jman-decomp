@@ -97,10 +97,12 @@ scene_t *NavData::FUN_1008_60c6(scene_t *ptr, int area, int scene, int dir) {
 	return ptr;
 }
 
+// FUNCTION: JMAN10 0x1008621e
 HGLOBAL NavData::GetScenesHandle() {
 	return _glScenes;
 }
 
+// FUNCTION: JMAN10 0x1008622c
 UINT NavData::GetScenesCount() {
 	return _n_scenes;
 }
@@ -114,6 +116,7 @@ NavMap::~NavMap() {
 }
 
 // TODO
+// FUNCTION: JMAN10 0x100862bc
 BOOL NavMap::Setup(HGLOBAL scenes, UINT n_scenes) {
 	if (visits_)
 		GlobalFree(visits_);
