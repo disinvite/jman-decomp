@@ -19,7 +19,7 @@ NavData::NavData() {
 
 	// Read AVI data into memory
 	_glAvifiles = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, n_avi_blocks * 128);
-	int *nav_avi = (int *)LockResource(_glAvifiles);
+	int *nav_avi = (int *)GlobalLock(_glAvifiles);
 	res_navdata++;
 	memcpy(nav_avi, res_navdata, n_avi_blocks * 128);
 	UnlockResource(_glAvifiles);
@@ -31,7 +31,7 @@ NavData::NavData() {
 
 	// Read scene data into memory
 	_glScenes = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, _n_scenes * 42);
-	int *nav_scene = (int *)LockResource(_glScenes);
+	int *nav_scene = (int *)GlobalLock(_glScenes);
 	memcpy(nav_scene, res_navdata, _n_scenes * 42);
 	UnlockResource(_glScenes);
 

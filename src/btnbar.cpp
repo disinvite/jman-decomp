@@ -45,7 +45,7 @@ void BtnBar::OnPaint() {
 // FUNCTION: JMAN10 0x10089eea
 void BtnBar::OnLButtonDown(UINT nFlags, CPoint point) {
 	active_btn_ = (point.x / 40) + 1;
-	DWORD t_time = GetCurrentTime();
+	DWORD t_time = GetTickCount();
 
 	Invalidate(FALSE);
 	UpdateWindow();
@@ -65,7 +65,7 @@ void BtnBar::OnLButtonDown(UINT nFlags, CPoint point) {
 		break;
 	}
 
-	while (t_time + 100 > GetCurrentTime()) {
+	while (t_time + 100 > GetTickCount()) {
 		Yield();
 	}
 

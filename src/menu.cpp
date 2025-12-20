@@ -33,9 +33,15 @@ Menu::Menu(CFrameWnd *cf) {
 	HDIB hBkgd = OpenDIB(GetPathToSupportFile("SUPPORT\\MAINMNU1.BMP"));
 	_menu2 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
 
+	GlobalUnlock(hBkgd);
+	GlobalFree(hBkgd);
+
 	_menu0 = 0;
 	hBkgd = OpenDIB(GetPathToSupportFile("SUPPORT\\MAINMNU1.BMP"));
 	_menu0 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
+
+	GlobalUnlock(hBkgd);
+	GlobalFree(hBkgd);
 
 	_menu1 = 0;
 	hBkgd = OpenDIB(GetPathToSupportFile("SUPPORT\\MAINMNU2.BMP"));
