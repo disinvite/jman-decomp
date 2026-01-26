@@ -19,6 +19,7 @@ address,type,size,symbol
 10004440,function,8,?GetRuntimeClass@CException@@VFCPEUCRuntimeClass@@XZ
 100045aa,function,8,?GetRuntimeClass@CMemoryException@@VFCPEUCRuntimeClass@@XZ
 100045f2,function,8,?GetRuntimeClass@CNotSupportedException@@VFCPEUCRuntimeClass@@XZ
+10004ada,function,14,_AFX_VERSION
 10005446,function,8,?GetRuntimeClass@CMapWordToPtr@@VFCPEUCRuntimeClass@@XZ
 10005b6a,function,176,??0CFrameWnd@@REC@XZ
 10005c1a,function,54,??1CFrameWnd@@VEC@XZ
