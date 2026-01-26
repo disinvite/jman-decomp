@@ -19,15 +19,11 @@ BOOL HDC_FUN_1008_41a0(CWnd *cf, char *filename);
 BOOL HDC_FUN_1008_424c(CWnd *cf);
 BOOL HDC_FUN_1008_42fa(CWnd *cf);
 void HDC_FUN_1008_44b0(HDC hdc, HBITMAP hBitmap, int x, int y);
-void HDC_FUN_1008_453e(HDC hdc, int dx, int dy, int width, int height,
-					   HBITMAP hBitmap, int sx, int sy);
-BOOL HDC_FUN_1008_46f6(HDC hdc, HBITMAP bmp_src,
-					   int sx, int sy, int width, int height, HBITMAP bmp_dst,
-					   int dx, int dy, BOOL dissolve, COLORREF color);
+void HDC_FUN_1008_453e(HDC hdc, int dx, int dy, int width, int height, HBITMAP hBitmap, int sx, int sy);
+BOOL HDC_FUN_1008_46f6(HDC hdc, HBITMAP bmp_src, int sx, int sy, int width, int height, HBITMAP bmp_dst, int dx, int dy, BOOL dissolve, COLORREF color);
 BOOL HDC_FUN_1008_47a8(HDC hdc, HWND hwnd, HBITMAP bmp, int x, int y, DWORD, int);
 BOOL hdc_UpdateHDC(HWND hwnd, HDC hdc, int x, int y, DWORD, int);
-BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height,
-					   HBITMAP argbmp, int sx, int sy, BYTE b0, DWORD duration);
+BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height, HBITMAP argbmp, int sx, int sy, BYTE b0, DWORD duration);
 
 // DIB functions
 

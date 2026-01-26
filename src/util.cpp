@@ -218,8 +218,7 @@ void HDC_FUN_1008_44b0(HDC hdc, HBITMAP hBitmap, int x, int y) {
 }
 
 // FUNCTION: JMAN10 0x1008453e
-void HDC_FUN_1008_453e(HDC hdc, int dx, int dy, int width, int height,
-					   HBITMAP hBitmap, int sx, int sy) {
+void HDC_FUN_1008_453e(HDC hdc, int dx, int dy, int width, int height, HBITMAP hBitmap, int sx, int sy) {
 
 	HDC hMemDC = CreateCompatibleDC(hdc);
 	SelectObject(hMemDC, (HGDIOBJ)hBitmap);
@@ -230,8 +229,7 @@ void HDC_FUN_1008_453e(HDC hdc, int dx, int dy, int width, int height,
 // dissolving between two images?
 // Good except for XOR. macro to invert colors?
 // FUNCTION: JMAN10 0x10084580
-BOOL HDC_FUN_1008_4580(HDC hdc, int dx, int dy, int width, int height,
-					   HDC hdc2, int sx, int sy, COLORREF color) {
+BOOL HDC_FUN_1008_4580(HDC hdc, int dx, int dy, int width, int height, HDC hdc2, int sx, int sy, COLORREF color) {
 
 	HBITMAP hbmp = CreateCompatibleBitmap(hdc, width, height);
 	HDC hMemDC = CreateCompatibleDC(hdc);
@@ -270,9 +268,7 @@ BOOL HDC_FUN_1008_4580(HDC hdc, int dx, int dy, int width, int height,
 }
 
 // FUNCTION: JMAN10 0x100846f6
-BOOL HDC_FUN_1008_46f6(HDC hdc, HBITMAP bmp_src,
-					   int sx, int sy, int width, int height, HBITMAP bmp_dst,
-					   int dx, int dy, BOOL dissolve, COLORREF color) {
+BOOL HDC_FUN_1008_46f6(HDC hdc, HBITMAP bmp_src, int sx, int sy, int width, int height, HBITMAP bmp_dst, int dx, int dy, BOOL dissolve, COLORREF color) {
 	if (!hdc) {
 		return FALSE;
 	}
@@ -338,8 +334,7 @@ BOOL hdc_UpdateHDC(HWND hwnd, HDC hdc, int x, int y, DWORD, int) {
 }
 
 // FUNCTION: JMAN10 0x10084876
-BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height,
-					   HBITMAP argbmp, int sx, int sy, BYTE b0, DWORD duration) {
+BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height, HBITMAP argbmp, int sx, int sy, BYTE b0, DWORD duration) {
 
 	HBITMAP hbmp = CreateCompatibleBitmap(hdc, width, height);
 	HDC hdc28 = CreateCompatibleDC(hdc);

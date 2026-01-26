@@ -1,5 +1,6 @@
 {
     BasedOnStyle: LLVM,
+    BinPackParameters: false, # See isledecomp/reccmp/issues/273
     UseTab: ForContinuationAndIndentation,
     IndentWidth: 4,
     TabWidth: 4,
