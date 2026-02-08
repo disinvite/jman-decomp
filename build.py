@@ -1,7 +1,7 @@
 """Utilities to generate and build with old MSVC 1.5. We would prefer to use CMake, but it is not compatible."""
 
 import re
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Iterable, Iterator
 
 
@@ -75,13 +75,13 @@ class Makefile:
         for obj_file, src_file in self.obj_files.items():
             dep_variable = self.aliases[src_file] + "_DEP"
             # src_relative = src_file.relative_to(root, walk_up=True)
-            src_relative = Path("..") / "src" / src_file.relative_to(src_dir)
-            obj_relative = obj_file.relative_to(root)
+            src_relative = PureWindowsPath(Path("..") / "src" / src_file.relative_to(src_dir))
+            obj_relative = PureWindowsPath(obj_file.relative_to(root))
             yield f'{obj_relative}:\t{src_relative} $({dep_variable})\n\t$(CPP) /Fo"$@" $(CFLAGS) $(CPPCREATEPCHFLAG) /c {src_relative}'
             yield "" # Blank between each.
 
     def create_main_targets(self, root: Path) -> Iterator[str]:
-        objs_relative = [obj_file.relative_to(root) for obj_file in self.obj_files.keys()]
+        objs_relative = [PureWindowsPath(obj_file.relative_to(root)) for obj_file in self.obj_files.keys()]
         objs = string_continuation(objs_relative)
         #objs_plus = "\n".join([obj + " +" for obj in objs_relative])
 
