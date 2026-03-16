@@ -9,7 +9,7 @@ protected:
 
 public:
 	Titles(CFrameWnd *);
-	void Logos();
+	BOOL Logos();
 
 protected:
 	afx_msg BOOL OnEraseBkgnd(CDC *pDC);

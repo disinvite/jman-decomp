@@ -34,7 +34,7 @@ Titles::Titles(CFrameWnd *cf) {
 }
 
 // FUNCTION: JMAN10 0x1028b848
-void Titles::Logos() {
+BOOL Titles::Logos() {
 	ShowCursor(FALSE);
 	InvalidateRect(NULL, TRUE);
 	UpdateWindow();
@@ -118,8 +118,8 @@ void Titles::Logos() {
 
 	::ShowWindow(videoWindow, SW_HIDE);
 	::SendMessage(videoWindow, WM_CLOSE, 0, NULL);
-	::InvalidateRect(m_hWnd, NULL, TRUE);
-	::UpdateWindow(m_hWnd);
+	InvalidateRect(NULL, TRUE);
+	UpdateWindow();
 
 	// "Present..."
 
@@ -132,9 +132,9 @@ void Titles::Logos() {
 	::GlobalUnlock(hdib_present);
 	::GlobalFree(hdib_present);
 
-	CDC *cdc = CDC::FromHandle(::GetDC(m_hWnd));
+	CDC *cdc = GetDC();
 	HDC_FUN_1008_44b0(cdc->m_hDC, hbmp, 212, 222);
-	::ReleaseDC(m_hWnd, cdc->m_hDC);
+	ReleaseDC(cdc);
 
 	while (PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
 					   WM_LBUTTONDOWN, WM_LBUTTONUP, PM_REMOVE))
@@ -144,23 +144,23 @@ void Titles::Logos() {
 					   WM_KEYFIRST, WM_KEYLAST, PM_REMOVE))
 		;
 
-	DWORD start_time = ::GetCurrentTime();
-	while (::GetCurrentTime() >= (start_time + 5000)) {
+	DWORD startTicks;
+	for (startTicks = ::GetTickCount(); startTicks + 5000 > ::GetTickCount();) {
 		if ((PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
 						 WM_KEYFIRST, WM_KEYLAST, PM_REMOVE))) {
 			break;
 		}
 
 		::Yield();
-
-		if (::GetCurrentTime() < (start_time + 5000)) {
-			break;
-		}
 	}
 
 	::DeleteObject(hbmp);
-	::InvalidateRect(m_hWnd, NULL, TRUE);
-	::UpdateWindow(m_hWnd);
+	InvalidateRect(NULL, TRUE);
+	UpdateWindow();
+
+	while (PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
+					   WM_LBUTTONDOWN, WM_LBUTTONUP, PM_REMOVE))
+		;
 
 	while (PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
 					   WM_KEYFIRST, WM_KEYLAST, PM_REMOVE))
@@ -193,17 +193,38 @@ void Titles::Logos() {
 		MCIWndGetMode(videoWindow, szMode, sizeof(szMode));
 	} while (strcmp("stopped", szMode));
 
+	// TODO: magic number
+	::SendMessage(videoWindow, MCI_SEEK, 0,
+				  ::SendMessage(videoWindow, 0x469, 0, NULL));
+
+	while (PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
+					   WM_LBUTTONDOWN, WM_LBUTTONUP, PM_REMOVE))
+		;
+
+	while (PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
+					   WM_KEYFIRST, WM_KEYLAST, PM_REMOVE))
+		;
+
+	sndPlaySound(GetPathToSupportFile("SUPPORT\\CALTHEME.WAV"), SND_NODEFAULT | SND_ASYNC);
+
+	startTicks = ::GetTickCount();
+	do {
+		if (PeekMessage(&msg, afxCurrentWinApp->m_pMainWnd->m_hWnd,
+						WM_KEYFIRST, WM_KEYLAST, PM_REMOVE)) {
+			startTicks -= 10000;
+		}
+	} while (startTicks + 10000 > ::GetTickCount());
+
 	::ShowWindow(videoWindow, SW_HIDE);
 	::SendMessage(videoWindow, WM_CLOSE, 0, NULL);
-	::InvalidateRect(m_hWnd, NULL, TRUE);
-	::UpdateWindow(m_hWnd);
+	ShowCursor(TRUE);
 
-	::ShowCursor(TRUE);
+	return TRUE;
 }
 
 // FUNCTION: JMAN10 0x1028beb8
 BOOL Titles::OnEraseBkgnd(CDC *pDC) {
-	CBrush backBrush;
+	CBrush backBrush(RGB(0, 0, 0));
 	CBrush *pOldBrush = pDC->SelectObject(&backBrush);
 	CRect rect;
 	pDC->GetClipBox(&rect);
