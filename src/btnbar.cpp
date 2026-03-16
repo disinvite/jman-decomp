@@ -37,7 +37,7 @@ void BtnBar::OnPaint() {
 	PAINTSTRUCT paint;
 
 	CDC *cdc = BeginPaint(&paint);
-	HDC_FUN_1008_453e(cdc->m_hDC, 0, 0, 161, 32, bmp_, active_btn_ * 32, 0);
+	HDC_FUN_1008_453e(cdc->m_hDC, 0, 0, 161, 32, bmp_, 0, active_btn_ * 32);
 
 	EndPaint(&paint);
 }

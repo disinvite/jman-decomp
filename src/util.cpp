@@ -273,11 +273,11 @@ BOOL HDC_FUN_1008_46f6(HDC hdc, HBITMAP bmp_src, int sx, int sy, int width, int 
 		return FALSE;
 	}
 
-	if (!bmp_dst) {
+	if (!bmp_src) {
 		return FALSE;
 	}
 
-	if (!bmp_src) {
+	if (!bmp_dst) {
 		return FALSE;
 	}
 
