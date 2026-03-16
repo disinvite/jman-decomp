@@ -4,7 +4,7 @@
 
 // FUNCTION: JMAN10 0x102835ec
 InvData::InvData() {
-	_glInventory = 0;
+	m_glInventory = 0;
 
 	HGLOBAL gl = LoadResource(afxCurrentResourceHandle, FindResource(afxCurrentResourceHandle, "BDATA", "INVDATA"));
 	int *res_inv = (int *)LockResource(gl);
@@ -12,10 +12,10 @@ InvData::InvData() {
 	UINT n_items = *res_inv;
 	res_inv++;
 
-	_glInventory = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, 618 * n_items);
-	int *invdata = (int *)GlobalLock(_glInventory);
+	m_glInventory = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, 618 * n_items);
+	int *invdata = (int *)GlobalLock(m_glInventory);
 	memcpy(invdata, res_inv, 618 * n_items);
-	GlobalUnlock(_glInventory);
+	GlobalUnlock(m_glInventory);
 
 	GlobalUnlock(gl);
 	FreeResource(gl);
@@ -23,19 +23,19 @@ InvData::InvData() {
 
 // FUNCTION: JMAN10 0x102836b4
 InvData::~InvData() {
-	if (_glInventory != 0) {
-		GlobalFree(_glInventory);
+	if (m_glInventory != 0) {
+		GlobalFree(m_glInventory);
 	}
-	_glInventory = 0;
+	m_glInventory = 0;
 }
 
 // FUNCTION: JMAN10 0x10283840
 int InvData::Count() {
-	if (_glInventory == 0) {
+	if (m_glInventory == 0) {
 		return -1;
 	}
 
-	return GlobalSize(_glInventory) / 618;
+	return GlobalSize(m_glInventory) / 618;
 }
 
 // STUB: JMAN10 0x10283906
@@ -48,35 +48,35 @@ PlayerInventory::~PlayerInventory() {
 
 // FUNCTION: JMAN10 0x10283976
 BOOL PlayerInventory::Reset(UINT n_items) {
-	_player_n_items = 0;
-	_total_items = n_items;
+	m_playerItemCount = 0;
+	m_totalItems = n_items;
 
-	if (_glItems != 0) {
-		GlobalFree(_glItems);
+	if (m_glItems != 0) {
+		GlobalFree(m_glItems);
 	}
-	_glItems = 0;
-	_glItems = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, n_items * sizeof(player_item_t));
+	m_glItems = 0;
+	m_glItems = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, n_items * sizeof(player_item_t));
 
 	return TRUE;
 }
 
 // FUNCTION: JMAN10 0x10283a9c
 BOOL PlayerInventory::HasItem(int id) {
-	if (_glItems == 0) {
+	if (m_glItems == 0) {
 		return FALSE;
 	}
 
-	if (_player_n_items <= 0) {
+	if (m_playerItemCount <= 0) {
 		return FALSE;
 	}
 
-	player_item_t *items = (player_item_t *)GlobalLock(_glItems);
+	player_item_t *items = (player_item_t *)GlobalLock(m_glItems);
 	if (!items) {
 		return FALSE;
 	}
 
 	BOOL found = FALSE;
-	for (int i = 0; i < _player_n_items; i++) {
+	for (int i = 0; i < m_playerItemCount; i++) {
 		if (found) {
 			break;
 		}
@@ -88,7 +88,7 @@ BOOL PlayerInventory::HasItem(int id) {
 		}
 	}
 
-	GlobalUnlock(_glItems);
+	GlobalUnlock(m_glItems);
 	return found;
 }
 

@@ -11,7 +11,7 @@ BOOL BasePathDialog::OnInitDialog() {
 	int xpos = (GetSystemMetrics(SM_CXSCREEN) - rect.left - rect.right) / 2;
 	::SetWindowPos(m_hWnd, NULL, xpos, ypos, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
-	SetDlgItemText(RES_BASEPATH_TEXT, _header_text);
+	SetDlgItemText(RES_BASEPATH_TEXT, m_headerText);
 	CEdit *edit = (CEdit *)GetDlgItem(RES_BASEPATH_INPUT);
 	edit->LimitText(255);
 

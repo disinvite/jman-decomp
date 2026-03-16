@@ -12,7 +12,7 @@
 
 class BasePathDialog : public CDialog {
 public:
-	char _header_text[256];
+	char m_headerText[256];
 
 protected:
 	virtual BOOL OnInitDialog();

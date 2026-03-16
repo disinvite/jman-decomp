@@ -11,19 +11,19 @@ public:
 	Menu(CFrameWnd *);
 	~Menu();
 
-	HBITMAP _menu0;
-	HBITMAP _menu1;
-	HBITMAP _menu2;
-	RECT _rect0;
-	RECT _rect1;
-	RECT _rect2;
-	RECT _rect3;
-	RECT _rect4;
-	RECT _rect5;
-	RECT _rect6;
+	HBITMAP m_menu0;
+	HBITMAP m_menu1;
+	HBITMAP m_menu2;
+	RECT m_rect0;
+	RECT m_rect1;
+	RECT m_rect2;
+	RECT m_rect3;
+	RECT m_rect4;
+	RECT m_rect5;
+	RECT m_rect6;
 
-	int _selected_opt;      // 0x5a
-	char _rollover_buf[64]; // 0x5c size?
+	int m_selectedOpt;      // 0x5a
+	char m_rolloverBuf[64]; // 0x5c size?
 
 protected:
 	afx_msg void OnPaint();

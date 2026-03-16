@@ -3,7 +3,7 @@
 
 #include <afxwin.h>
 
-// VTABLE: JMAN 10081082
+// VTABLE: JMAN10 0x10081082
 class JmanWindow : public CFrameWnd {
 public:
 	JmanWindow();
@@ -14,8 +14,8 @@ public:
 	BOOL ShowDream();
 	BOOL NewGame();
 
-	BOOL _game_should_exit;
-	CWnd *_curwindow;
+	BOOL m_gameShouldExit;
+	CWnd *m_curWindow;
 
 protected:
 	afx_msg void OnKeyDown(UINT, UINT, UINT);
@@ -23,7 +23,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
-// GLOBAL: JMAN 10000000
+// GLOBAL: JMAN10 0x10000000
 // JmanWindow::_messageEntries
 
 #endif

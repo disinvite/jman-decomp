@@ -18,22 +18,22 @@ NavData::NavData() {
 	int n_avi_blocks = *res_navdata;
 
 	// Read AVI data into memory
-	_glAvifiles = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, n_avi_blocks * 128);
-	int *nav_avi = (int *)GlobalLock(_glAvifiles);
+	m_glAvifiles = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, n_avi_blocks * 128);
+	int *nav_avi = (int *)GlobalLock(m_glAvifiles);
 	res_navdata++;
 	memcpy(nav_avi, res_navdata, n_avi_blocks * 128);
-	UnlockResource(_glAvifiles);
+	UnlockResource(m_glAvifiles);
 
 	// Seek data pointer ahead to scene section
 	res_navdata += (n_avi_blocks * 64); // 64 words = 128 bytes.
-	_n_scenes = *res_navdata;
+	m_sceneCount = *res_navdata;
 	res_navdata++;
 
 	// Read scene data into memory
-	_glScenes = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, _n_scenes * 42);
-	int *nav_scene = (int *)GlobalLock(_glScenes);
-	memcpy(nav_scene, res_navdata, _n_scenes * 42);
-	UnlockResource(_glScenes);
+	m_glScenes = GlobalAlloc(GMEM_ZEROINIT | GMEM_MOVEABLE, m_sceneCount * 42);
+	int *nav_scene = (int *)GlobalLock(m_glScenes);
+	memcpy(nav_scene, res_navdata, m_sceneCount * 42);
+	UnlockResource(m_glScenes);
 
 	UnlockResource(gl);
 	FreeResource(gl);
@@ -41,16 +41,16 @@ NavData::NavData() {
 
 // FUNCTION: JMAN10 0x10085fa4
 NavData::~NavData() {
-	if (_glScenes != 0) {
-		GlobalFree(_glScenes);
+	if (m_glScenes != 0) {
+		GlobalFree(m_glScenes);
 	}
 
-	if (_glAvifiles != 0) {
-		GlobalFree(_glAvifiles);
+	if (m_glAvifiles != 0) {
+		GlobalFree(m_glAvifiles);
 	}
 
-	_glScenes = 0;
-	_glAvifiles = 0;
+	m_glScenes = 0;
+	m_glAvifiles = 0;
 }
 
 // FUNCTION: JMAN10 0x10085ffc
@@ -61,10 +61,10 @@ scene_t *NavData::FUN_1008_5ffc(scene_t *ptr, pos_t pos) {
 	scene.pos.dir = -1;
 	BOOL found = FALSE;
 
-	if (_glScenes != 0) {
-		scene_t *scenes = (scene_t *)GlobalLock(_glScenes);
+	if (m_glScenes != 0) {
+		scene_t *scenes = (scene_t *)GlobalLock(m_glScenes);
 		// redundant, but intentional.
-		int max = (int)_n_scenes;
+		int max = (int)m_sceneCount;
 		for (int i = 0; i < max; i++) {
 			if (found) {
 				break;
@@ -83,7 +83,7 @@ scene_t *NavData::FUN_1008_5ffc(scene_t *ptr, pos_t pos) {
 			memcpy(&scene, scenes, sizeof(scene_t));
 		}
 
-		GlobalUnlock(_glScenes);
+		GlobalUnlock(m_glScenes);
 	}
 	memcpy(ptr, &scene, sizeof(scene_t));
 
@@ -99,12 +99,12 @@ scene_t *NavData::FUN_1008_60c6(scene_t *ptr, int area, int scene, int dir) {
 
 // FUNCTION: JMAN10 0x1008621e
 HGLOBAL NavData::GetScenesHandle() {
-	return _glScenes;
+	return m_glScenes;
 }
 
 // FUNCTION: JMAN10 0x1008622c
 UINT NavData::GetScenesCount() {
-	return _n_scenes;
+	return m_sceneCount;
 }
 
 // STUB: JMAN10 0x1008623a

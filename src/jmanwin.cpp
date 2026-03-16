@@ -16,8 +16,8 @@ END_MESSAGE_MAP()
 
 // FUNCTION: JMAN10 0x10080000
 JmanWindow::JmanWindow() {
-	_game_should_exit = FALSE;
-	_curwindow = NULL;
+	m_gameShouldExit = FALSE;
+	m_curWindow = NULL;
 
 	// full screen
 	RECT rect;
@@ -33,28 +33,28 @@ JmanWindow::JmanWindow() {
 
 // FUNCTION: JMAN10 0x100800aa
 JmanWindow::~JmanWindow() {
-	if (_curwindow != NULL) {
-		_curwindow->DestroyWindow();
-		delete _curwindow;
+	if (m_curWindow != NULL) {
+		m_curWindow->DestroyWindow();
+		delete m_curWindow;
 	}
 
-	_curwindow = NULL;
+	m_curWindow = NULL;
 	sndPlaySound(NULL, SND_NODEFAULT);
 }
 
 // FUNCTION: JMAN10 0x10080124
 BOOL JmanWindow::ShowMenu() {
-	if (_curwindow != NULL) {
-		_curwindow->DestroyWindow();
-		delete _curwindow;
+	if (m_curWindow != NULL) {
+		m_curWindow->DestroyWindow();
+		delete m_curWindow;
 	}
 
-	_curwindow = NULL;
+	m_curWindow = NULL;
 
-	_curwindow = new Menu(this);
-	_curwindow->ShowWindow(SW_SHOW);
-	_curwindow->InvalidateRect(NULL, TRUE);
-	_curwindow->UpdateWindow();
+	m_curWindow = new Menu(this);
+	m_curWindow->ShowWindow(SW_SHOW);
+	m_curWindow->InvalidateRect(NULL, TRUE);
+	m_curWindow->UpdateWindow();
 
 	SetFocus();
 
@@ -66,15 +66,15 @@ BOOL JmanWindow::ShowTitles() {
 	RECT rect;
 	GetClientRect(&rect);
 
-	_curwindow = new Titles(this);
-	_curwindow->ShowWindow(SW_SHOW);
-	_curwindow->InvalidateRect(NULL, TRUE);
-	_curwindow->UpdateWindow();
-	((Titles *)_curwindow)->Logos();
+	m_curWindow = new Titles(this);
+	m_curWindow->ShowWindow(SW_SHOW);
+	m_curWindow->InvalidateRect(NULL, TRUE);
+	m_curWindow->UpdateWindow();
+	((Titles *)m_curWindow)->Logos();
 
-	_curwindow->DestroyWindow();
-	delete _curwindow;
-	_curwindow = NULL;
+	m_curWindow->DestroyWindow();
+	delete m_curWindow;
+	m_curWindow = NULL;
 
 	SetFocus();
 	ShowMenu();
@@ -94,22 +94,22 @@ BOOL JmanWindow::ShowDream() {
 
 // FUNCTION: JMAN10 0x100805ba
 BOOL JmanWindow::NewGame() {
-	if (_curwindow != NULL) {
-		_curwindow->DestroyWindow();
-		delete _curwindow;
+	if (m_curWindow != NULL) {
+		m_curWindow->DestroyWindow();
+		delete m_curWindow;
 	}
-	_curwindow = NULL;
+	m_curWindow = NULL;
 
 	RECT rect;
 	GetClientRect(&rect);
 
-	_curwindow = new GameWindow(this, (rect.right - 640) / 2, (rect.bottom - 480) / 2);
+	m_curWindow = new GameWindow(this, (rect.right - 640) / 2, (rect.bottom - 480) / 2);
 
-	_curwindow->ShowWindow(SW_SHOW);
-	_curwindow->Invalidate(TRUE);
-	_curwindow->UpdateWindow();
+	m_curWindow->ShowWindow(SW_SHOW);
+	m_curWindow->Invalidate(TRUE);
+	m_curWindow->UpdateWindow();
 
-	((GameWindow *)_curwindow)->Setup(this);
+	((GameWindow *)m_curWindow)->Setup(this);
 
 	return TRUE;
 }
@@ -118,18 +118,18 @@ BOOL JmanWindow::NewGame() {
 void JmanWindow::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	switch (nChar) {
 	case VK_ESCAPE:
-		_game_should_exit = TRUE;
+		m_gameShouldExit = TRUE;
 		break;
 	default:
-		if (_curwindow == NULL) {
+		if (m_curWindow == NULL) {
 			break;
 		}
 
-		if (!_curwindow->IsWindowEnabled()) {
+		if (!m_curWindow->IsWindowEnabled()) {
 			break;
 		}
 
-		_curwindow->SendMessage(WM_KEYDOWN, nChar, MAKELONG(nRepCnt, nFlags));
+		m_curWindow->SendMessage(WM_KEYDOWN, nChar, MAKELONG(nRepCnt, nFlags));
 		break;
 	}
 }
@@ -138,14 +138,14 @@ void JmanWindow::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags) {
 void JmanWindow::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	switch (nChar) {
 	case VK_ESCAPE:
-		if (_game_should_exit) {
-			_game_should_exit = FALSE;
+		if (m_gameShouldExit) {
+			m_gameShouldExit = FALSE;
 
-			if (_curwindow != NULL) {
-				_curwindow->DestroyWindow();
-				delete _curwindow;
+			if (m_curWindow != NULL) {
+				m_curWindow->DestroyWindow();
+				delete m_curWindow;
 			}
-			_curwindow = NULL;
+			m_curWindow = NULL;
 
 			HDC_FUN_1008_424c(this);
 
@@ -154,15 +154,15 @@ void JmanWindow::OnKeyUp(UINT nChar, UINT nRepCnt, UINT nFlags) {
 		}
 		break;
 	default:
-		if (_curwindow == NULL) {
+		if (m_curWindow == NULL) {
 			break;
 		}
 
-		if (!_curwindow->IsWindowEnabled()) {
+		if (!m_curWindow->IsWindowEnabled()) {
 			break;
 		}
 
-		_curwindow->SendMessage(WM_KEYUP, nChar, MAKELONG(nRepCnt, nFlags));
+		m_curWindow->SendMessage(WM_KEYUP, nChar, MAKELONG(nRepCnt, nFlags));
 		break;
 	}
 }

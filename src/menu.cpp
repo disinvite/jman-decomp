@@ -25,47 +25,47 @@ static char _far kMenuQuit[] = "Quit, so I can optimize my system for best perfo
 
 // FUNCTION: JMAN10 0x1028c044
 Menu::Menu(CFrameWnd *cf) {
-	_selected_opt = -1;
-	_rollover_buf[0] = '\0';
+	m_selectedOpt = -1;
+	m_rolloverBuf[0] = '\0';
 
 	HDC_FUN_1008_41a0(this, GetPathToSupportFile("SUPPORT\\FULLSCRN.BMP"));
-	_menu2 = 0;
+	m_menu2 = 0;
 	HDIB hBkgd = OpenDIB(GetPathToSupportFile("SUPPORT\\MAINMNU1.BMP"));
-	_menu2 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
+	m_menu2 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
 
 	GlobalUnlock(hBkgd);
 	GlobalFree(hBkgd);
 
-	_menu0 = 0;
+	m_menu0 = 0;
 	hBkgd = OpenDIB(GetPathToSupportFile("SUPPORT\\MAINMNU1.BMP"));
-	_menu0 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
+	m_menu0 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
 
 	GlobalUnlock(hBkgd);
 	GlobalFree(hBkgd);
 
-	_menu1 = 0;
+	m_menu1 = 0;
 	hBkgd = OpenDIB(GetPathToSupportFile("SUPPORT\\MAINMNU2.BMP"));
-	_menu1 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
+	m_menu1 = BitmapFromDib(hBkgd, GetCurrentPal(), 0);
 
 	GlobalUnlock(hBkgd);
 	GlobalFree(hBkgd);
 
 	// interface overview
-	SetRect(&_rect0, 406, 65, 614, 111);
+	SetRect(&m_rect0, 406, 65, 614, 111);
 
 	// new game
-	SetRect(&_rect1, 406, 128, 614, 174);
+	SetRect(&m_rect1, 406, 128, 614, 174);
 
 	// skip background, skip intro
-	SetRect(&_rect2, 406, 182, 506, 228);
-	SetRect(&_rect3, 514, 182, 614, 228);
+	SetRect(&m_rect2, 406, 182, 506, 228);
+	SetRect(&m_rect3, 514, 182, 614, 228);
 
 	// credits
-	SetRect(&_rect4, 406, 245, 614, 291);
+	SetRect(&m_rect4, 406, 245, 614, 291);
 
 	// restore previous, quit so i can prepare
-	SetRect(&_rect5, 406, 299, 506, 345);
-	SetRect(&_rect6, 514, 299, 614, 345);
+	SetRect(&m_rect5, 406, 299, 506, 345);
+	SetRect(&m_rect6, 514, 299, 614, 345);
 
 	RECT rect;
 	RECT center;
@@ -92,16 +92,16 @@ Menu::Menu(CFrameWnd *cf) {
 
 // FUNCTION: JMAN10 0x1028c2ce
 Menu::~Menu() {
-	if (_menu0 != 0) {
-		DeleteObject(_menu0);
+	if (m_menu0 != 0) {
+		DeleteObject(m_menu0);
 	}
 
-	if (_menu1 != 0) {
-		DeleteObject(_menu1);
+	if (m_menu1 != 0) {
+		DeleteObject(m_menu1);
 	}
 
-	if (_menu2 != 0) {
-		DeleteObject(_menu2);
+	if (m_menu2 != 0) {
+		DeleteObject(m_menu2);
 	}
 }
 
@@ -112,36 +112,36 @@ void Menu::OnPaint() {
 	CDC *cdc = BeginPaint(&paint);
 	cdc->RealizePalette();
 
-	HDC_FUN_1008_46f6(cdc->m_hDC, _menu0, 0, 0, 638, 478,
-					  _menu2, 0, 0, FALSE, NULL);
+	HDC_FUN_1008_46f6(cdc->m_hDC, m_menu0, 0, 0, 638, 478,
+					  m_menu2, 0, 0, FALSE, NULL);
 
-	if (_menu1 != 0) {
-		switch (_selected_opt) {
+	if (m_menu1 != 0) {
+		switch (m_selectedOpt) {
 		case 1:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 390, 55, 230, 64, _menu2, 390, 55, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 390, 55, 230, 64, m_menu2, 390, 55, FALSE, NULL);
 			break;
 		case 2:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 390, 126, 230, 53, _menu2, 390, 126, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 390, 126, 230, 53, m_menu2, 390, 126, FALSE, NULL);
 			break;
 		case 3:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 390, 180, 116, 54, _menu2, 390, 180, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 390, 180, 116, 54, m_menu2, 390, 180, FALSE, NULL);
 			break;
 		case 4:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 506, 180, 108, 56, _menu2, 506, 180, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 506, 180, 108, 56, m_menu2, 506, 180, FALSE, NULL);
 			break;
 		case 5:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 390, 240, 277, 55, _menu2, 390, 240, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 390, 240, 277, 55, m_menu2, 390, 240, FALSE, NULL);
 			break;
 		case 6:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 390, 298, 115, 54, _menu2, 390, 298, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 390, 298, 115, 54, m_menu2, 390, 298, FALSE, NULL);
 			break;
 		case 7:
-			HDC_FUN_1008_46f6(cdc->m_hDC, _menu1, 506, 298, 108, 56, _menu2, 506, 298, FALSE, NULL);
+			HDC_FUN_1008_46f6(cdc->m_hDC, m_menu1, 506, 298, 108, 56, m_menu2, 506, 298, FALSE, NULL);
 			break;
 		}
 	}
 
-	if (_rollover_buf[0] != '\0') {
+	if (m_rolloverBuf[0] != '\0') {
 		CFont font;
 		CDC myCdc;
 
@@ -149,13 +149,13 @@ void Menu::OnPaint() {
 		SetRect(&text_rect, 411, 385, 607, 415);
 
 		myCdc.CreateCompatibleDC(cdc);
-		// HGDIOBJ old_obj = myCdc.SelectObject(_menu2);
-		HGDIOBJ old_obj = SelectObject(myCdc.m_hDC, _menu2);
+		// HGDIOBJ old_obj = myCdc.SelectObject(m_menu2);
+		HGDIOBJ old_obj = SelectObject(myCdc.m_hDC, m_menu2);
 		font.CreateFont(14, 0, 0, 0, 700, 0, 0, 0, 0, 4, 1, 2, 1, "Arial");
 		COLORREF old_color = myCdc.SetTextColor(0);
 		int old_mode = myCdc.SetBkMode(TRANSPARENT);
 		CFont *old_font = myCdc.SelectObject(&font);
-		myCdc.DrawText(_rollover_buf, -1, &text_rect, DT_NOCLIP | DT_WORDBREAK);
+		myCdc.DrawText(m_rolloverBuf, -1, &text_rect, DT_NOCLIP | DT_WORDBREAK);
 
 		myCdc.SelectObject(old_font);
 		myCdc.SetBkMode(old_mode);
@@ -166,41 +166,41 @@ void Menu::OnPaint() {
 		font.DeleteObject();
 	}
 
-	HDC_FUN_1008_44b0(cdc->m_hDC, _menu2, 0, 0);
+	HDC_FUN_1008_44b0(cdc->m_hDC, m_menu2, 0, 0);
 	EndPaint(&paint);
 }
 
 // FUNCTION: JMAN10 0x1028c636
 void Menu::OnLButtonDown(UINT nFlags, CPoint point) {
-	_selected_opt = 0;
+	m_selectedOpt = 0;
 
 	// redundant `== TRUE` used intentionally.
-	if (PtInRect(&_rect0, point) == TRUE) {
-		_selected_opt = 1;
+	if (PtInRect(&m_rect0, point) == TRUE) {
+		m_selectedOpt = 1;
 	}
 
-	if (PtInRect(&_rect1, point) == TRUE) {
-		_selected_opt = 2;
+	if (PtInRect(&m_rect1, point) == TRUE) {
+		m_selectedOpt = 2;
 	}
 
-	if (PtInRect(&_rect2, point) == TRUE) {
-		_selected_opt = 3;
+	if (PtInRect(&m_rect2, point) == TRUE) {
+		m_selectedOpt = 3;
 	}
 
-	if (PtInRect(&_rect3, point) == TRUE) {
-		_selected_opt = 4;
+	if (PtInRect(&m_rect3, point) == TRUE) {
+		m_selectedOpt = 4;
 	}
 
-	if (PtInRect(&_rect4, point) == TRUE) {
-		_selected_opt = 5;
+	if (PtInRect(&m_rect4, point) == TRUE) {
+		m_selectedOpt = 5;
 	}
 
-	if (PtInRect(&_rect5, point) == TRUE) {
-		_selected_opt = 6;
+	if (PtInRect(&m_rect5, point) == TRUE) {
+		m_selectedOpt = 6;
 	}
 
-	if (PtInRect(&_rect6, point) == TRUE) {
-		_selected_opt = 7;
+	if (PtInRect(&m_rect6, point) == TRUE) {
+		m_selectedOpt = 7;
 	}
 
 	Invalidate(FALSE);
@@ -209,42 +209,42 @@ void Menu::OnLButtonDown(UINT nFlags, CPoint point) {
 
 // FUNCTION: JMAN10 0x1028c73c
 void Menu::OnLButtonUp(UINT nFlags, CPoint point) {
-	int t_opt = _selected_opt;
-	_selected_opt = 0;
+	int t_opt = m_selectedOpt;
+	m_selectedOpt = 0;
 
 	Invalidate(FALSE);
 	UpdateWindow();
 
-	_selected_opt = 0;
-	if (PtInRect(&_rect0, point) == TRUE && t_opt == 1) {
+	m_selectedOpt = 0;
+	if (PtInRect(&m_rect0, point) == TRUE && t_opt == 1) {
 		JmanWindow *wnd = (JmanWindow *)GetParent();
-		if (wnd->_curwindow != NULL) {
-			delete wnd->_curwindow;
+		if (wnd->m_curWindow != NULL) {
+			delete wnd->m_curWindow;
 		}
 
-		wnd->_curwindow = NULL;
-		// wnd->_curwindow = new InterfaceOverview();
+		wnd->m_curWindow = NULL;
+		// wnd->m_curWindow = new InterfaceOverview();
 	}
 
-	if (PtInRect(&_rect1, point) == TRUE && t_opt == 2) {
+	if (PtInRect(&m_rect1, point) == TRUE && t_opt == 2) {
 		((JmanWindow *)GetParent())->ShowSepia();
 	}
 
-	if (PtInRect(&_rect2, point) == TRUE && t_opt == 3) {
+	if (PtInRect(&m_rect2, point) == TRUE && t_opt == 3) {
 		((JmanWindow *)GetParent())->ShowDream();
 	}
 
-	if (PtInRect(&_rect3, point) == TRUE && t_opt == 4) {
+	if (PtInRect(&m_rect3, point) == TRUE && t_opt == 4) {
 		((JmanWindow *)GetParent())->NewGame();
 	}
 
-	if (PtInRect(&_rect4, point) == TRUE && t_opt == 5) {
+	if (PtInRect(&m_rect4, point) == TRUE && t_opt == 5) {
 	}
 
-	if (PtInRect(&_rect5, point) == TRUE && t_opt == 6) {
+	if (PtInRect(&m_rect5, point) == TRUE && t_opt == 6) {
 	}
 
-	if (PtInRect(&_rect6, point) == TRUE && t_opt == 7) {
+	if (PtInRect(&m_rect6, point) == TRUE && t_opt == 7) {
 		// emulate escape keypress to exit game
 		GetParent()->SendMessage(WM_KEYDOWN, VK_ESCAPE, 0);
 		GetParent()->SendMessage(WM_KEYUP, VK_ESCAPE, 0);
@@ -253,67 +253,67 @@ void Menu::OnLButtonUp(UINT nFlags, CPoint point) {
 
 // FUNCTION: JMAN10 0x1028cb14
 void Menu::OnMouseMove(UINT nFlags, CPoint point) {
-	if (_selected_opt <= 0) {
-		_rollover_buf[0] = '\0';
+	if (m_selectedOpt <= 0) {
+		m_rolloverBuf[0] = '\0';
 
 		// redundant `== TRUE` used intentionally.
-		if (PtInRect(&_rect0, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuInterface);
+		if (PtInRect(&m_rect0, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuInterface);
 		}
 
-		if (PtInRect(&_rect1, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuNewGame);
+		if (PtInRect(&m_rect1, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuNewGame);
 		}
 
-		if (PtInRect(&_rect2, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuSkipBkgd);
+		if (PtInRect(&m_rect2, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuSkipBkgd);
 		}
 
-		if (PtInRect(&_rect3, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuSkipIntro);
+		if (PtInRect(&m_rect3, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuSkipIntro);
 		}
 
-		if (PtInRect(&_rect4, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuCredits);
+		if (PtInRect(&m_rect4, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuCredits);
 		}
 
-		if (PtInRect(&_rect5, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuRestore);
+		if (PtInRect(&m_rect5, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuRestore);
 		}
 
-		if (PtInRect(&_rect6, point) == TRUE) {
-			lstrcpy(_rollover_buf, kMenuQuit);
+		if (PtInRect(&m_rect6, point) == TRUE) {
+			lstrcpy(m_rolloverBuf, kMenuQuit);
 		}
 	} else {
-		int t_opt = _selected_opt;
-		_selected_opt = 0;
+		int t_opt = m_selectedOpt;
+		m_selectedOpt = 0;
 
-		if (PtInRect(&_rect0, point) == TRUE && t_opt == 1) {
-			_selected_opt = 1;
+		if (PtInRect(&m_rect0, point) == TRUE && t_opt == 1) {
+			m_selectedOpt = 1;
 		}
 
-		if (PtInRect(&_rect1, point) == TRUE && t_opt == 2) {
-			_selected_opt = 2;
+		if (PtInRect(&m_rect1, point) == TRUE && t_opt == 2) {
+			m_selectedOpt = 2;
 		}
 
-		if (PtInRect(&_rect2, point) == TRUE && t_opt == 3) {
-			_selected_opt = 3;
+		if (PtInRect(&m_rect2, point) == TRUE && t_opt == 3) {
+			m_selectedOpt = 3;
 		}
 
-		if (PtInRect(&_rect3, point) == TRUE && t_opt == 4) {
-			_selected_opt = 4;
+		if (PtInRect(&m_rect3, point) == TRUE && t_opt == 4) {
+			m_selectedOpt = 4;
 		}
 
-		if (PtInRect(&_rect4, point) == TRUE && t_opt == 5) {
-			_selected_opt = 5;
+		if (PtInRect(&m_rect4, point) == TRUE && t_opt == 5) {
+			m_selectedOpt = 5;
 		}
 
-		if (PtInRect(&_rect5, point) == TRUE && t_opt == 6) {
-			_selected_opt = 6;
+		if (PtInRect(&m_rect5, point) == TRUE && t_opt == 6) {
+			m_selectedOpt = 6;
 		}
 
-		if (PtInRect(&_rect6, point) == TRUE && t_opt == 7) {
-			_selected_opt = 7;
+		if (PtInRect(&m_rect6, point) == TRUE && t_opt == 7) {
+			m_selectedOpt = 7;
 		}
 	}
 

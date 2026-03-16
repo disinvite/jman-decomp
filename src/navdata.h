@@ -39,9 +39,9 @@ public:
 	UINT GetScenesCount();
 
 	// UINT or int?
-	UINT _n_scenes;      // 0x04
-	HGLOBAL _glScenes;   // 0x06
-	HGLOBAL _glAvifiles; // 0x08
+	UINT m_sceneCount;    // 0x04
+	HGLOBAL m_glScenes;   // 0x06
+	HGLOBAL m_glAvifiles; // 0x08
 };
 
 class NavMap : public CObject {

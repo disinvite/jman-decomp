@@ -9,7 +9,7 @@ public:
 	InvData();
 	~InvData();
 
-	HGLOBAL _glInventory;
+	HGLOBAL m_glInventory;
 
 	int Count();
 };
@@ -26,9 +26,9 @@ public:
 	PlayerInventory();
 	~PlayerInventory();
 
-	UINT _total_items;   // 0x04
-	int _player_n_items; // 0x06
-	HGLOBAL _glItems;    // 0x08
+	UINT m_totalItems;     // 0x04
+	int m_playerItemCount; // 0x06
+	HGLOBAL m_glItems;     // 0x08
 
 	BOOL Reset(UINT);
 	BOOL HasItem(int);

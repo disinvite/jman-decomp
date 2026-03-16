@@ -13,10 +13,10 @@ public:
 	BOOL KillTimers();
 	JScene *_current_scene; // 0x1c
 
-	UINT _timer0; // 0x28
-	UINT _timer1; // 0x2a
-	UINT _timer2; // 0x2c
-	UINT _timer3; // 0x2e
+	UINT m_timer0; // 0x28
+	UINT m_timer1; // 0x2a
+	UINT m_timer2; // 0x2c
+	UINT m_timer3; // 0x2e
 
 	void MovePlayer(int);
 	BOOL NewArea(int scene, int area, int dir);

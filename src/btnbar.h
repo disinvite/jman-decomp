@@ -9,9 +9,9 @@ public:
 	BtnBar(CFrameWnd *, int, int);
 	~BtnBar();
 
-	HBITMAP bmp_;     // 0x1c
-	UINT active_btn_; // 0x1e
-	BOOL prop_20_;    // 0x20
+	HBITMAP m_bitmap;    // 0x1c
+	UINT m_activeButton; // 0x1e
+	BOOL m_unk0x20;      // 0x20
 
 protected:
 	afx_msg void OnPaint();

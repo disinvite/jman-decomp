@@ -107,9 +107,9 @@ BOOL Startup_BasePathWarning(void) {
 
 		// TODO: what is this?
 		if (kJmanConfNotFound) {
-			lstrcpy(dlg._header_text, kJmanConfNotFound);
+			lstrcpy(dlg.m_headerText, kJmanConfNotFound);
 		} else {
-			lstrcpy(dlg._header_text, kPathConfNotFound);
+			lstrcpy(dlg.m_headerText, kPathConfNotFound);
 		}
 
 		// if user didn't click okay?
@@ -127,9 +127,9 @@ BOOL Startup_BasePathWarning(void) {
 
 			// TODO: what is this?
 			if (kCDNotFound) {
-				lstrcpy(dlg._header_text, kCDNotFound);
+				lstrcpy(dlg.m_headerText, kCDNotFound);
 			} else {
-				lstrcpy(dlg._header_text, kPathConfNotFound);
+				lstrcpy(dlg.m_headerText, kPathConfNotFound);
 			}
 
 			// if user didn't click okay?

@@ -15,20 +15,20 @@ public:
 	GameWindow(CFrameWnd *, int, int);
 	~GameWindow();
 
-	MsgWnd *msgwnd_;         // 0x1c
-	Viewscreen *viewscreen_; // 0x20
-	Compass *compass_;       // 0x24
-	BtnBar *btnbar_;         // 0x28
+	MsgWnd *m_msgWnd;         // 0x1c
+	Viewscreen *m_viewScreen; // 0x20
+	Compass *m_compass;       // 0x24
+	BtnBar *m_btnBar;         // 0x28
 	// InvWnd // 0x2c
-	NavData navdata_;        // 0x38
-	NavMap navmap_;          // 0x42
-	Inventory _inventory;    // 0x4e
-	DWORD _energy_level;     // 0x76
-	CFont _font;             // 0x88
-	HWND hElight_;           // 0x8e
-	int _energy_alert_level; // 0x90
-	HBITMAP _bmp_fullscrn;   // 0x92
-	int draw_level_;         // 0x94
+	NavData m_navData;          // 0x38
+	NavMap m_navMap;            // 0x42
+	Inventory m_inventory;      // 0x4e
+	DWORD m_energyLevel;        // 0x76
+	CFont m_font;               // 0x88
+	HWND m_eLight;              // 0x8e
+	int m_energyAlertLevel;     // 0x90
+	HBITMAP m_bitmapFullscreen; // 0x92
+	int m_drawLevel;            // 0x94
 
 	BOOL Setup(CFrameWnd *cf);
 	BOOL AddToEnergy(long);

@@ -12,12 +12,12 @@ END_MESSAGE_MAP()
 
 // FUNCTION: JMAN10 0x10089d8e
 BtnBar::BtnBar(CFrameWnd *cf, int left, int top) {
-	bmp_ = 0;
-	active_btn_ = 0;
-	prop_20_ = FALSE;
+	m_bitmap = 0;
+	m_activeButton = 0;
+	m_unk0x20 = FALSE;
 
 	HDIB btn = OpenDIB(GetPathToSupportFile("SUPPORT\\BTNBAR.BMP"));
-	bmp_ = BitmapFromDib(btn, GetCurrentPal(), 0);
+	m_bitmap = BitmapFromDib(btn, GetCurrentPal(), 0);
 	GlobalUnlock(btn);
 	GlobalFree(btn);
 
@@ -27,8 +27,8 @@ BtnBar::BtnBar(CFrameWnd *cf, int left, int top) {
 
 // FUNCTION: JMAN10 0x10089e4a
 BtnBar::~BtnBar() {
-	if (bmp_ != 0) {
-		DeleteObject(bmp_);
+	if (m_bitmap != 0) {
+		DeleteObject(m_bitmap);
 	}
 }
 
@@ -37,31 +37,31 @@ void BtnBar::OnPaint() {
 	PAINTSTRUCT paint;
 
 	CDC *cdc = BeginPaint(&paint);
-	HDC_FUN_1008_453e(cdc->m_hDC, 0, 0, 161, 32, bmp_, 0, active_btn_ * 32);
+	HDC_FUN_1008_453e(cdc->m_hDC, 0, 0, 161, 32, m_bitmap, 0, m_activeButton * 32);
 
 	EndPaint(&paint);
 }
 
 // FUNCTION: JMAN10 0x10089eea
 void BtnBar::OnLButtonDown(UINT nFlags, CPoint point) {
-	active_btn_ = (point.x / 40) + 1;
+	m_activeButton = (point.x / 40) + 1;
 	DWORD t_time = GetTickCount();
 
 	Invalidate(FALSE);
 	UpdateWindow();
 
-	switch (active_btn_) {
+	switch (m_activeButton) {
 	case 1:
-		((GameWindow *)GetParent())->viewscreen_->MovePlayer(1);
+		((GameWindow *)GetParent())->m_viewScreen->MovePlayer(1);
 		break;
 	case 2:
-		((GameWindow *)GetParent())->viewscreen_->MovePlayer(0);
+		((GameWindow *)GetParent())->m_viewScreen->MovePlayer(0);
 		break;
 	case 3:
-		((GameWindow *)GetParent())->viewscreen_->MovePlayer(2);
+		((GameWindow *)GetParent())->m_viewScreen->MovePlayer(2);
 		break;
 	case 4:
-		((GameWindow *)GetParent())->viewscreen_->MovePlayer(3);
+		((GameWindow *)GetParent())->m_viewScreen->MovePlayer(3);
 		break;
 	}
 
@@ -69,7 +69,7 @@ void BtnBar::OnLButtonDown(UINT nFlags, CPoint point) {
 		Yield();
 	}
 
-	active_btn_ = 0;
+	m_activeButton = 0;
 
 	Invalidate(FALSE);
 	UpdateWindow();

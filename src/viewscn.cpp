@@ -39,7 +39,7 @@ BOOL Viewscreen::NewArea(int scene, int area, int dir) {
 			delete _current_scene;
 			_current_scene = NULL;
 		} else {
-			((GameWindow *)GetParent())->compass_->Oof();
+			((GameWindow *)GetParent())->m_compass->Oof();
 			return FALSE;
 		}
 	} else {
@@ -54,25 +54,25 @@ BOOL Viewscreen::NewArea(int scene, int area, int dir) {
 }
 
 BOOL Viewscreen::SetTimers(void) {
-	if (_timer0 != NULL) {
-		::KillTimer(m_hWnd, _timer0);
+	if (m_timer0 != NULL) {
+		::KillTimer(m_hWnd, m_timer0);
 	}
-	_timer0 = ::SetTimer(m_hWnd, 1, 1000, NULL);
+	m_timer0 = ::SetTimer(m_hWnd, 1, 1000, NULL);
 
-	if (_timer1 != NULL) {
-		::KillTimer(m_hWnd, _timer1);
+	if (m_timer1 != NULL) {
+		::KillTimer(m_hWnd, m_timer1);
 	}
-	_timer1 = ::SetTimer(m_hWnd, 2, 100, NULL);
+	m_timer1 = ::SetTimer(m_hWnd, 2, 100, NULL);
 
-	if (_timer2 != NULL) {
-		::KillTimer(m_hWnd, _timer2);
+	if (m_timer2 != NULL) {
+		::KillTimer(m_hWnd, m_timer2);
 	}
-	_timer2 = ::SetTimer(m_hWnd, 3, 1000, NULL);
+	m_timer2 = ::SetTimer(m_hWnd, 3, 1000, NULL);
 
-	if (_timer3 != NULL) {
-		::KillTimer(m_hWnd, _timer3);
+	if (m_timer3 != NULL) {
+		::KillTimer(m_hWnd, m_timer3);
 	}
-	_timer3 = ::SetTimer(m_hWnd, 4, 1000, NULL);
+	m_timer3 = ::SetTimer(m_hWnd, 4, 1000, NULL);
 
 	return TRUE;
 }
@@ -83,25 +83,25 @@ BOOL Viewscreen::KillTimers(void) {
 	while (PeekMessage(&msg, m_hWnd, WM_TIMER, WM_TIMER, PM_REMOVE))
 		;
 
-	if (_timer0 != NULL) {
-		::KillTimer(m_hWnd, _timer0);
+	if (m_timer0 != NULL) {
+		::KillTimer(m_hWnd, m_timer0);
 	}
-	_timer0 = NULL;
+	m_timer0 = NULL;
 
-	if (_timer1 != NULL) {
-		::KillTimer(m_hWnd, _timer1);
+	if (m_timer1 != NULL) {
+		::KillTimer(m_hWnd, m_timer1);
 	}
-	_timer1 = NULL;
+	m_timer1 = NULL;
 
-	if (_timer2 != NULL) {
-		::KillTimer(m_hWnd, _timer2);
+	if (m_timer2 != NULL) {
+		::KillTimer(m_hWnd, m_timer2);
 	}
-	_timer2 = NULL;
+	m_timer2 = NULL;
 
-	if (_timer3 != NULL) {
-		::KillTimer(m_hWnd, _timer3);
+	if (m_timer3 != NULL) {
+		::KillTimer(m_hWnd, m_timer3);
 	}
-	_timer3 = NULL;
+	m_timer3 = NULL;
 
 	while (PeekMessage(&msg, m_hWnd, WM_TIMER, WM_TIMER, PM_REMOVE))
 		;
