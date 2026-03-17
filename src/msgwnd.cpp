@@ -18,12 +18,14 @@ END_MESSAGE_MAP()
 
 // FUNCTION: JMAN10 0x1008513c
 MsgWnd::MsgWnd(CWnd *parent, int left, int top) {
-	TCHAR szMode[64];
+	TCHAR szMode[256];
 
 	hMessage_ = 0;
 	windowOpen_ = FALSE;
 	canvas_ = 0;
 	isPrompt_ = FALSE;
+	m_unk0x32 = 0;
+	m_unk0x58 = 0;
 
 	str1_.Empty();
 	str2_.Empty();
@@ -41,11 +43,12 @@ MsgWnd::MsgWnd(CWnd *parent, int left, int top) {
 							 GetPathToSupportFile("SUPPORT\\MESSAGE.AVI"));
 
 	if (hMessage_ != 0) {
+		MCIWndRealize(hMessage_, 0);
 		MCIWndSeek(hMessage_, 0);
 		WaitForMCIStopped(szMode);
 		CDC *cdc = GetDC();
 		canvas_ = ::CreateCompatibleBitmap(cdc->m_hDC, 128, 168);
-		HDC_FUN_1008_47a8(cdc->m_hDC, m_hWnd, 0, 0, 0, 0, 0);
+		HDC_FUN_1008_47a8(cdc->m_hDC, hMessage_, canvas_, 0, 0, 0, 0);
 		ReleaseDC(cdc);
 	}
 }
@@ -60,13 +63,14 @@ void MsgWnd::NewMessage(char *str) {
 	// TypeText()
 }
 
+// FUNCTION: JMAN10 0x10085566
 BOOL MsgWnd::TypeText() {
 	TCHAR szMode[64];
 
 	if (!hMessage_)
 		return FALSE;
 
-	// prop 58 = 0;
+	m_unk0x58 = 0;
 
 	// If the window is not open yet, open it.
 	if (!windowOpen_) {
@@ -92,16 +96,15 @@ BOOL MsgWnd::TypeText() {
 
 	// message string not empty?
 	if (str1_.GetLength() != 0 && canvas_ != 0) {
-		CDC tCDC;    // 2e
-		CFont tFont; // 1a/1c
+		CDC tCDC;          // 2c/2e
+		CBitmap unkBitmap; // 1a/1c
 
 		CDC *cdc = GetDC();
 		HDC_FUN_1008_47a8(cdc->m_hDC, hMessage_, canvas_, 0, 0, 0, 0);
-		// cdc->CreateCompatibleDC(&tCDC);
 		tCDC.CreateCompatibleDC(cdc);
 
 		CBitmap *bmp = CBitmap::FromHandle(canvas_);
-		CBitmap *old_bmp = cdc->SelectObject(bmp);
+		CBitmap *old_bmp = tCDC.SelectObject(bmp);
 		CFont *old_font = tCDC.SelectObject(&font_);
 
 		COLORREF old_color = tCDC.SetTextColor(RGB(255, 255, 255));
@@ -112,8 +115,8 @@ BOOL MsgWnd::TypeText() {
 		SetRect(&rect, 20, 10, 118, 160);
 		tCDC.DrawText(str1_, -1, &rect, DT_NOCLIP | DT_WORDBREAK);
 
-		// Option 1 (e.g. "Use")
-		if (isPrompt_) {
+		if (isPrompt_ == 1) {
+			// Option 1 (e.g. "Use")
 			SetRect(&rect, 20, 100, 118, 120);
 			tCDC.DrawText(str2_, -1, &rect, DT_NOCLIP | DT_WORDBREAK);
 
@@ -128,7 +131,7 @@ BOOL MsgWnd::TypeText() {
 		tCDC.SelectObject(old_bmp);
 
 		HDC_FUN_1008_4876(m_hWnd, cdc->m_hDC, 0, 0, 128, 168,
-						  canvas_, 0, 0, 160, 500);
+						  canvas_, 0, 0, 10, 500);
 
 		ReleaseDC(cdc);
 	}

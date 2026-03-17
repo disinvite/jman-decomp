@@ -4,6 +4,7 @@
 #include <afxwin.h>
 
 // VTABLE: JMAN10 0x10081082
+// SIZE 0x62
 class JmanWindow : public CFrameWnd {
 public:
 	JmanWindow();
@@ -16,6 +17,7 @@ public:
 
 	BOOL m_gameShouldExit;
 	CWnd *m_curWindow;
+	char m_padding[2];
 
 protected:
 	afx_msg void OnKeyDown(UINT, UINT, UINT);

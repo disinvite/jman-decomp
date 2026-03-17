@@ -10,20 +10,27 @@
 #include "navdata.h"
 #include "viewscn.h"
 
+// SIZE 0x98
 class GameWindow : public CWnd {
 public:
 	GameWindow(CFrameWnd *, int, int);
 	~GameWindow();
 
-	MsgWnd *m_msgWnd;         // 0x1c
-	Viewscreen *m_viewScreen; // 0x20
-	Compass *m_compass;       // 0x24
-	BtnBar *m_btnBar;         // 0x28
-	// InvWnd // 0x2c
+	MsgWnd *m_msgWnd;           // 0x1c
+	Viewscreen *m_viewScreen;   // 0x20
+	Compass *m_compass;         // 0x24
+	BtnBar *m_btnBar;           // 0x28
+	char m_invWnd[12];          // 0x2c (should be InvWnd)
 	NavData m_navData;          // 0x38
 	NavMap m_navMap;            // 0x42
+	char m_unk0x4c[2];          // 0x4c ?
 	Inventory m_inventory;      // 0x4e
+	char m_padding[20];         // ....
 	DWORD m_energyLevel;        // 0x76
+	DWORD m_unk0x7a;            // 0x7a
+	DWORD m_unk0x7e;            // 0x7e
+	WORD m_unk0x82;             // 0x82
+	DWORD m_unk0x84;            // 0x84
 	CFont m_font;               // 0x88
 	HWND m_eLight;              // 0x8e
 	int m_energyAlertLevel;     // 0x90

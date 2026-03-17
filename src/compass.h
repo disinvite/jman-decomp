@@ -6,6 +6,7 @@
 #include "navdata.h"
 
 // VTABLE: JMAN10 0x10089d22
+// SIZE 0x20
 class Compass : public CWnd {
 public:
 	Compass(CWnd *parent, int left, int top);

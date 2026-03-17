@@ -22,6 +22,7 @@ Viewscreen::Viewscreen(void) {
 	// Create(NULL, "The Journeyman Project Turbo", WS_OVERLAPPEDWINDOW, rectDefault);
 }
 
+// STUB: JMAN10 0x10086ccc
 void Viewscreen::MovePlayer(int dir) {
 }
 

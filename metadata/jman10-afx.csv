@@ -57,6 +57,7 @@ address,type,size,symbol
 1000788c,function,66,?Detach@CDC@@RECPBUHDC__@@XZ
 100078ce,function,39,?DeleteDC@CDC@@RECHXZ
 100078f6,function,62,??1CDC@@VEC@XZ
+10007a6c,function,24,?SelectGdiObject@CDC@@LCPEVCGdiObject@@PBUHDC__@@PBX@Z
 10007b4a,function,117,?SelectObject@CDC@@RECPEVCBrush@@PEV2@@Z
 10007bc0,function,117,?SelectObject@CDC@@VECPEVCFont@@PEV2@@Z
 10007c88,function,69,?SetBkMode@CDC@@RECHH@Z
@@ -68,6 +69,7 @@ address,type,size,symbol
 10008236,function,39,?DeleteObject@CGdiObject@@RECHXZ
 1000825e,function,47,??1CGdiObject@@VEC@XZ
 100082c8,function,8,?GetRuntimeClass@CFont@@VFCPEUCRuntimeClass@@XZ
+100082de,function,8,?GetRuntimeClass@CBitmap@@VFCPEUCRuntimeClass@@XZ
 10008370,function,89,??0CBrush@@REC@K@Z
 1000871e,function,89,?_AfxGetParentOwner@@ZCPBUHWND__@@PBU1@@Z
 10008bda,function,120,?_AfxGetSafeOwner@@ZCPBUHWND__@@PEVCWnd@@@Z
@@ -78,6 +80,7 @@ address,type,size,symbol
 100840aa,vtable,20,??_7CGdiObject@@6F@
 100840be,vtable,20,??_7CFont@@6F@
 100840d2,vtable,20,??_7CObject@@6F@
+10085e56,vtable,20,??_7CBitmap@@6F@
 10303236,vtable,20,??_7CException@@6F@
 1030324a,vtable,20,??_7CMemoryException@@6F@
 10303272,vtable,20,??_7CPtrList@@6F@

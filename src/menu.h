@@ -3,6 +3,7 @@
 
 #include <afxwin.h>
 
+// SIZE 0x45c
 class Menu : public CWnd {
 protected:
 	DECLARE_DYNAMIC(Menu)
@@ -22,8 +23,8 @@ public:
 	RECT m_rect5;
 	RECT m_rect6;
 
-	int m_selectedOpt;      // 0x5a
-	char m_rolloverBuf[64]; // 0x5c size?
+	int m_selectedOpt;        // 0x5a
+	char m_rolloverBuf[1024]; // 0x5c size?
 
 protected:
 	afx_msg void OnPaint();

@@ -68,9 +68,15 @@ GameWindow::~GameWindow() {
 // FUNCTION: JMAN10 0x1008211e
 BOOL GameWindow::Setup(CFrameWnd *cf) {
 	m_navMap.Setup(m_navData.GetScenesHandle(), m_navData.GetScenesCount());
+	// TODO:
+	// m_inventory->FUN_1028_40c0()
 
+	m_drawLevel = 2;
 	m_energyLevel = 1000000;
-
+	m_unk0x7a = 0;
+	m_unk0x7e = 0;
+	m_unk0x82 = 0;
+	m_unk0x84 = 0;
 	m_energyAlertLevel = 0;
 
 	ShowWindow(SW_SHOW);
@@ -78,6 +84,7 @@ BOOL GameWindow::Setup(CFrameWnd *cf) {
 		::ShowWindow(m_eLight, SW_SHOW);
 
 	m_msgWnd = new MsgWnd(this, 0, 96);
+	m_msgWnd->EnableWindow(FALSE);
 	m_msgWnd->ShowWindow(SW_SHOW);
 
 	m_compass = new Compass(this, 287, 35);
