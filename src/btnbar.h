@@ -6,7 +6,7 @@
 // VTABLE: JMAN10 0x1008a014
 class BtnBar : public CWnd {
 public:
-	BtnBar(CFrameWnd *, int, int);
+	BtnBar(CWnd *, int, int);
 	~BtnBar();
 
 	HBITMAP m_bitmap;    // 0x1c

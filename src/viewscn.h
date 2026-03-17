@@ -1,14 +1,17 @@
 #ifndef VIEWSCN_H
 #define VIEWSCN_H
 
+#include "invdata.h"
 #include "jscene.h"
+#include "navdata.h"
 
+// SIZE 0x550
 class Viewscreen : public CWnd {
 protected:
 	DECLARE_DYNAMIC(Viewscreen)
 
 public:
-	Viewscreen();
+	Viewscreen(CWnd *, int, int, NavData *, NavMap *, Inventory *, int, int, DWORD);
 	BOOL SetTimers();
 	BOOL KillTimers();
 	JScene *_current_scene; // 0x1c

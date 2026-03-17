@@ -18,7 +18,8 @@ ON_WM_TIMER()
 ON_MESSAGE(100, OnMCIError)
 END_MESSAGE_MAP()
 
-Viewscreen::Viewscreen(void) {
+// STUB: JMAN10 0x10086a4c
+Viewscreen::Viewscreen(CWnd *parent, int left, int top, NavData *navdata, NavMap *navmap, Inventory *inventory, int, int, DWORD) {
 	// Create(NULL, "The Journeyman Project Turbo", WS_OVERLAPPEDWINDOW, rectDefault);
 }
 

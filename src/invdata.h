@@ -39,9 +39,10 @@ class Inventory : public CObject {
 public:
 	Inventory();
 
-	InvData _invdata;              // 0x04
-	PlayerInventory _player_items; // 0x0a
+	InvData m_invData;             // 0x04
+	PlayerInventory m_playerItems; // 0x0a
 
+	void FUN_1028_40c0();
 	BOOL PlayerHasItem(int);
 };
 

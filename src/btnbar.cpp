@@ -11,7 +11,7 @@ ON_WM_LBUTTONDOWN()
 END_MESSAGE_MAP()
 
 // FUNCTION: JMAN10 0x10089d8e
-BtnBar::BtnBar(CFrameWnd *cf, int left, int top) {
+BtnBar::BtnBar(CWnd *parent, int left, int top) {
 	m_bitmap = 0;
 	m_activeButton = 0;
 	m_unk0x20 = FALSE;
@@ -22,7 +22,7 @@ BtnBar::BtnBar(CFrameWnd *cf, int left, int top) {
 	GlobalFree(btn);
 
 	RECT rect = {left, top, left + 161, top + 32};
-	Create(NULL, NULL, 0x40000000, rect, cf, 0, NULL);
+	Create(NULL, NULL, 0x40000000, rect, parent, 0, NULL);
 }
 
 // FUNCTION: JMAN10 0x10089e4a

@@ -68,8 +68,7 @@ GameWindow::~GameWindow() {
 // FUNCTION: JMAN10 0x1008211e
 BOOL GameWindow::Setup(CFrameWnd *cf) {
 	m_navMap.Setup(m_navData.GetScenesHandle(), m_navData.GetScenesCount());
-	// TODO:
-	// m_inventory->FUN_1028_40c0()
+	m_inventory.FUN_1028_40c0();
 
 	m_drawLevel = 2;
 	m_energyLevel = 1000000;
@@ -90,8 +89,13 @@ BOOL GameWindow::Setup(CFrameWnd *cf) {
 	m_compass = new Compass(this, 287, 35);
 	m_compass->ShowWindow(SW_SHOW);
 
-	// Viewscreen
-	// Btnbar
+	m_viewScreen = new Viewscreen(this, 128, 90, &m_navData, &m_navMap, &m_inventory, 1, 19, 3);
+	m_viewScreen->EnableWindow(FALSE);
+	m_viewScreen->ShowWindow(SW_SHOW);
+
+	m_btnBar = new BtnBar(this, 439, 448);
+	m_btnBar->ShowWindow(SW_SHOW);
+
 	// InvWnd
 	// Biochip
 	// Chipbank

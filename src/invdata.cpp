@@ -94,10 +94,14 @@ BOOL PlayerInventory::HasItem(int id) {
 
 // STUB: JMAN10 0x10283f98
 Inventory::Inventory() {
-	_player_items.Reset(_invdata.Count());
+	m_playerItems.Reset(m_invData.Count());
+}
+
+// STUB: JMAN10 0x102840c0
+void Inventory::FUN_1028_40c0() {
 }
 
 // FUNCTION: JMAN10 0x10284122
 BOOL Inventory::PlayerHasItem(int id) {
-	return _player_items.HasItem(id);
+	return m_playerItems.HasItem(id);
 }
