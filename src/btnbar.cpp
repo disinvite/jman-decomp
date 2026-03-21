@@ -22,7 +22,7 @@ BtnBar::BtnBar(CWnd *parent, int left, int top) {
 	GlobalFree(btn);
 
 	RECT rect = {left, top, left + 161, top + 32};
-	Create(NULL, NULL, 0x40000000, rect, parent, 0, NULL);
+	Create(NULL, NULL, WS_CHILD, rect, parent, 0, NULL);
 }
 
 // FUNCTION: JMAN10 0x10089e4a

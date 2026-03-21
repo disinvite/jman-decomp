@@ -3,9 +3,12 @@
 
 #include <afxwin.h>
 
+#include "biochip.h"
 #include "btnbar.h"
+#include "chipbank.h"
 #include "compass.h"
 #include "invdata.h"
+#include "invwnd.h"
 #include "msgwnd.h"
 #include "navdata.h"
 #include "viewscn.h"
@@ -20,7 +23,9 @@ public:
 	Viewscreen *m_viewScreen;   // 0x20
 	Compass *m_compass;         // 0x24
 	BtnBar *m_btnBar;           // 0x28
-	char m_invWnd[12];          // 0x2c (should be InvWnd)
+	InvWnd *m_invWnd;           // 0x2c
+	BioChip *m_bioChip;         // 0x30
+	ChipBank *m_chipBank;       // 0x34
 	NavData m_navData;          // 0x38
 	NavMap m_navMap;            // 0x42
 	char m_unk0x4c[2];          // 0x4c ?

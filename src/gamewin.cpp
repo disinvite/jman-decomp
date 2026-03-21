@@ -96,9 +96,14 @@ BOOL GameWindow::Setup() {
 	m_btnBar = new BtnBar(this, 439, 448);
 	m_btnBar->ShowWindow(SW_SHOW);
 
-	// InvWnd
-	// Biochip
-	// Chipbank
+	m_invWnd = new InvWnd(this, 140, 319, &m_inventory);
+	m_invWnd->ShowWindow(SW_SHOW);
+
+	m_bioChip = new BioChip(this, 408, 337);
+	m_bioChip->ShowWindow(SW_SHOW);
+
+	m_chipBank = new ChipBank(this, 127, 432, &m_inventory);
+	m_chipBank->ShowWindow(SW_SHOW);
 
 	return TRUE;
 }
