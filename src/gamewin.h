@@ -36,8 +36,9 @@ public:
 	int m_energyAlertLevel;     // 0x90
 	HBITMAP m_bitmapFullscreen; // 0x92
 	int m_drawLevel;            // 0x94
+	int m_unk0x96;              // 0x96
 
-	BOOL Setup(CFrameWnd *cf);
+	BOOL Setup();
 	BOOL AddToEnergy(long);
 	DWORD GetEnergyLevel();
 	BOOL CheckEnergyLevel();

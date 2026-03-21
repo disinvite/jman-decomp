@@ -66,7 +66,7 @@ GameWindow::~GameWindow() {
 }
 
 // FUNCTION: JMAN10 0x1008211e
-BOOL GameWindow::Setup(CFrameWnd *cf) {
+BOOL GameWindow::Setup() {
 	m_navMap.Setup(m_navData.GetScenesHandle(), m_navData.GetScenesCount());
 	m_inventory.FUN_1028_40c0();
 

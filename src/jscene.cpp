@@ -2,18 +2,25 @@
 
 #include "navdata.h"
 
-// STUB: JMAN10 0x1008907e
+// FUNCTION: JMAN10 0x1008907e
 JScene::JScene() {
+}
+
+// FUNCTION: JMAN10 0x1008916c
+JScene::~JScene() {
+	// DeleteObject(m_unk0x004)
 }
 
 BOOL JScene::OnTimer() {
 	return TRUE;
 }
 
+// FUNCTION: JMAN10 0x100891c2
 BOOL JScene::OnEnter() {
 	return TRUE;
 }
 
+// FUNCTION: JMAN10 0x100891c8
 BOOL JScene::OnLeave(pos_t nextScene) {
 	return TRUE;
 }

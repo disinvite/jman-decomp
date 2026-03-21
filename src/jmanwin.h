@@ -15,9 +15,9 @@ public:
 	BOOL ShowDream();
 	BOOL NewGame();
 
-	BOOL m_gameShouldExit;
-	CWnd *m_curWindow;
-	char m_padding[2];
+	BOOL m_gameShouldExit; // 0x5a
+	CWnd *m_curWindow;     // 0x5c
+	char m_padding[2];     // 0x60
 
 protected:
 	afx_msg void OnKeyDown(UINT, UINT, UINT);
@@ -26,6 +26,6 @@ protected:
 };
 
 // GLOBAL: JMAN10 0x10000000
-// JmanWindow::_messageEntries
+// ?_messageEntries@JmanWindow@@0QEUAFX_MSGMAP_ENTRY@@E
 
 #endif

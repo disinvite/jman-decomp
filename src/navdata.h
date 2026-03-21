@@ -5,10 +5,11 @@
 
 // enum Direction { kEast = 0, kNorth, kWest, kSouth };
 
+// SIZE 0x06
 typedef struct pos_s {
-	int scene;
-	int area;
-	int dir;
+	int scene; // 0x00
+	int area;  // 0x02
+	int dir;   // 0x04
 } pos_t;
 
 typedef struct visited_s {
@@ -16,16 +17,21 @@ typedef struct visited_s {
 	BOOL visited;
 } visited_t;
 
+// SIZE 0x2a
 typedef struct scene_s {
-	pos_t pos;
-	int class_id;
-	pos_t left;
-	pos_t right;
-	pos_t forward;
-	pos_t backward;
-	int vid_no;
-	int frame_no;
-	int other[3];
+	pos_t pos;      // 0x00
+	int class_id;   // 0x06
+	pos_t left;     // 0x08
+	pos_t right;    // 0x0e
+	pos_t forward;  // 0x14
+	pos_t backward; // 0x1a
+	int vid_no;     // 0x20
+	int frame_no;   // 0x22
+	int unk0x24;    // 0x24
+	int unk0x26;    // 0x26
+	int unk0x28;    // 0x28
+
+	// 0x26 appears to be the total number of frames "connected" to this scene.
 } scene_t;
 
 class NavData : public CObject {

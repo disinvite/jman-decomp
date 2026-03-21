@@ -27,6 +27,7 @@ Viewscreen::Viewscreen(CWnd *parent, int left, int top, NavData *navdata, NavMap
 void Viewscreen::MovePlayer(int dir) {
 }
 
+// FUNCTION: JMAN10 0x10086d62
 BOOL Viewscreen::NewArea(int scene, int area, int dir) {
 	//((GameWindow)*GetParent())->invwnd_
 
@@ -34,9 +35,10 @@ BOOL Viewscreen::NewArea(int scene, int area, int dir) {
 	pos_t oldPos;
 	pos_t nextScene = {scene, area, dir};
 
+	// LINE: JMAN10 0x10086db8
 	if (_current_scene) {
 		if (_current_scene->OnLeave(nextScene)) {
-			oldPos = _current_scene->curpos;
+			oldPos = _current_scene->m_scene.pos;
 			_current_scene->~JScene(); // odd
 			delete _current_scene;
 			_current_scene = NULL;

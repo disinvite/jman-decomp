@@ -109,7 +109,10 @@ BOOL JmanWindow::NewGame() {
 	m_curWindow->Invalidate(TRUE);
 	m_curWindow->UpdateWindow();
 
-	((GameWindow *)m_curWindow)->Setup(this);
+	((GameWindow *)m_curWindow)->Setup();
+	// TODO: macros or enum.
+	// Area 1: (Caldoria 4th floor), Position 19, EAST.
+	((GameWindow *)m_curWindow)->m_viewScreen->NewArea(1, 19, 3);
 
 	return TRUE;
 }
