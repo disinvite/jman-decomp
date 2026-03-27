@@ -1,8 +1,10 @@
 #include "menu.h"
 
+#include <afxdlgs.h>
 #include <afxwin.h>
 
 #include "jmanwin.h"
+#include "tutor.h"
 #include "util.h"
 
 IMPLEMENT_DYNAMIC(Menu, CWnd)
@@ -222,23 +224,33 @@ void Menu::OnLButtonUp(UINT nFlags, CPoint point) {
 			delete wnd->m_curWindow;
 		}
 
-		wnd->m_curWindow = NULL;
-		// wnd->m_curWindow = new InterfaceOverview();
+		wnd->m_curWindow = new InterfaceOverview(wnd);
 	}
 
 	if (PtInRect(&m_rect1, point) == TRUE && t_opt == 2) {
 		((JmanWindow *)GetParent())->ShowSepia();
+		return;
 	}
 
 	if (PtInRect(&m_rect2, point) == TRUE && t_opt == 3) {
 		((JmanWindow *)GetParent())->ShowDream();
+		return;
 	}
 
 	if (PtInRect(&m_rect3, point) == TRUE && t_opt == 4) {
 		((JmanWindow *)GetParent())->NewGame();
+		return;
 	}
 
 	if (PtInRect(&m_rect4, point) == TRUE && t_opt == 5) {
+		// TODO: this is here just to get afxdlg code into the build.
+		CFileDialog fileDialog(
+			TRUE,
+			"Saved Games (*.jsg) | *.jsg | All Files (*.*) | *.* ||",
+			"agent5.jsg",
+			0,
+			"jsg",
+			GetParent());
 	}
 
 	if (PtInRect(&m_rect5, point) == TRUE && t_opt == 6) {

@@ -23,6 +23,7 @@ address,type,size,symbol
 10001188,function,116,?Create@CWnd@@VECHPFD0KAFUtagRECT@@PEV1@IPEUCCreateContext@@@Z
 100011fc,function,100,??1CWnd@@VEC@XZ
 10001322,function,77,?DestroyWindow@CWnd@@VECHXZ
+100017ac,function,8,?GetRuntimeClass@CWnd@@VFCPEUCRuntimeClass@@XZ
 10001cb0,function,62,?GetTopLevelParent@CWnd@@RFCPEV1@XZ
 10002656,function,204,?FromHandle@CHandleMap@@RACPEVCObject@@PBX@Z
 10002722,function,19,?RemoveHandle@CHandleMap@@RACXPBX@Z
@@ -41,6 +42,7 @@ address,type,size,symbol
 10004596,function,5,?AfxTerminate@@ZCXXZ
 100045aa,function,8,?GetRuntimeClass@CMemoryException@@VFCPEUCRuntimeClass@@XZ
 100045f2,function,8,?GetRuntimeClass@CNotSupportedException@@VFCPEUCRuntimeClass@@XZ
+10004832,function,8,?GetRuntimeClass@CFileDialog@@VFCPEUCRuntimeClass@@XZ
 10004ada,function,14,_AFX_VERSION
 10005446,function,8,?GetRuntimeClass@CMapWordToPtr@@VFCPEUCRuntimeClass@@XZ
 10005654,function,54,?FreeAssoc@CMapWordToPtr@@JECXPEUCAssoc@1@@Z

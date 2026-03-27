@@ -22,4 +22,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 };
 
+// SYNTHETIC: JMAN10 0x10204dca
+// ??_GChipBank@@VECPEXI@Z
+
 #endif
