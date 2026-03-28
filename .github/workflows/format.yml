@@ -13,7 +13,7 @@ jobs:
     - name: Run clang-format
       run: |
         find src -iname '*.h' -o -iname '*.cpp' | xargs \
-        pipx run "clang-format>=17,<18" \
+        pipx run "clang-format==22.1.2" \
           --style=file \
           -i
         git diff --color --exit-code
