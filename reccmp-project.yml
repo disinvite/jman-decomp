@@ -7,6 +7,8 @@ targets:
     data-sources:
       - metadata/jman10.csv
       - metadata/jman10-afx.csv
+    report:
+      icon: assets/jman.png
   JMAN11:
     filename: JMAN.EXE
     source_root: src

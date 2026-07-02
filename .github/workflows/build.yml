@@ -76,7 +76,7 @@ jobs:
     - name: Install python packages
       shell: bash
       run: |
-        pip install git+https://github.com/disinvite/reccmp.git@work-image-abstract
+        pip install git+https://github.com/disinvite/reccmp.git@jman-temp
 
     - name: Detect binaries
       run: |
