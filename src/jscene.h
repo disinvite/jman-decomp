@@ -11,8 +11,8 @@ class JScene : public CObject {
 public:
 	JScene();
 	virtual ~JScene();
-	virtual BOOL OnEnter();
-	virtual BOOL OnLeave(pos_t nextScene);
+	virtual BOOL OnEnter(UINT, UINT, UINT, UINT, UINT);
+	virtual BOOL OnLeave(CWnd *, pos_t nextScene);
 	virtual BOOL OnMouseUp(UINT, CPoint);
 	virtual BOOL OnMouseDown(UINT, CPoint);
 	virtual BOOL OnMouseMove(UINT, CPoint);

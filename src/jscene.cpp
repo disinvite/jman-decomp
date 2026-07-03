@@ -16,12 +16,12 @@ BOOL JScene::OnTimer() {
 }
 
 // FUNCTION: JMAN10 0x100891c2
-BOOL JScene::OnEnter() {
+BOOL JScene::OnEnter(UINT, UINT, UINT, UINT, UINT) {
 	return TRUE;
 }
 
 // FUNCTION: JMAN10 0x100891c8
-BOOL JScene::OnLeave(pos_t nextScene) {
+BOOL JScene::OnLeave(CWnd *, pos_t nextScene) {
 	return TRUE;
 }
 

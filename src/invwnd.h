@@ -11,6 +11,7 @@ class InvWnd : public CWnd {
 public:
 	InvWnd(CWnd *, int, int, Inventory *);
 	~InvWnd();
+	void FUN_1020_063a();
 
 	HBITMAP m_bitmap;       // 0x1c
 	Inventory *m_inventory; // 0x1e

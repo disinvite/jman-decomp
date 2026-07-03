@@ -49,16 +49,16 @@ NavData::~NavData() {
 		GlobalFree(m_glAvifiles);
 	}
 
-	m_glScenes = 0;
 	m_glAvifiles = 0;
+	m_glScenes = 0;
 }
 
 // FUNCTION: JMAN10 0x10085ffc
-scene_t *NavData::FUN_1008_5ffc(scene_t *ptr, pos_t pos) {
+scene_t NavData::FUN_1008_5ffc(pos_t pos) {
 	scene_t scene;
-	scene.pos.scene = -1;
-	scene.pos.area = -1;
-	scene.pos.dir = -1;
+	scene.m_data.pos.area = -1;
+	scene.m_data.pos.scene = -1;
+	scene.m_data.pos.dir = -1;
 	BOOL found = FALSE;
 
 	if (m_glScenes != 0) {
@@ -70,9 +70,9 @@ scene_t *NavData::FUN_1008_5ffc(scene_t *ptr, pos_t pos) {
 				break;
 			}
 
-			if (scenes->pos.scene == pos.scene &&
-				scenes->pos.area == pos.area &&
-				scenes->pos.dir == pos.dir) {
+			if (scenes->m_data.pos.area == pos.area &&
+				scenes->m_data.pos.scene == pos.scene &&
+				scenes->m_data.pos.dir == pos.dir) {
 				found = TRUE;
 			} else {
 				scenes++;
@@ -85,16 +85,14 @@ scene_t *NavData::FUN_1008_5ffc(scene_t *ptr, pos_t pos) {
 
 		GlobalUnlock(m_glScenes);
 	}
-	memcpy(ptr, &scene, sizeof(scene_t));
 
-	return ptr;
+	return scene;
 }
 
 // FUNCTION: JMAN10 0x100860c6
-scene_t *NavData::FUN_1008_60c6(scene_t *ptr, int area, int scene, int dir) {
+scene_t NavData::FUN_1008_60c6(int area, int scene, int dir) {
 	pos_t pos = {area, scene, dir};
-	FUN_1008_5ffc(ptr, pos);
-	return ptr;
+	return FUN_1008_5ffc(pos);
 }
 
 // FUNCTION: JMAN10 0x1008621e
@@ -138,7 +136,7 @@ BOOL NavMap::Setup(HGLOBAL scenes, UINT n_scenes) {
 
 	// TODO: mempcy section is wrong
 	for (UINT i = 0; i < n_scenes; i++) {
-		pVisited[i].pos = pScene[i].pos;
+		pVisited[i].pos = pScene[i].m_data.pos;
 	}
 
 	GlobalUnlock(visits_);

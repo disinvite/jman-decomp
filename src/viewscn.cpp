@@ -6,6 +6,7 @@
 #include "gamewin.h"
 #include "jscene.h"
 #include "navdata.h"
+#include "prehist.h"
 
 IMPLEMENT_DYNAMIC(Viewscreen, CWnd)
 
@@ -28,30 +29,67 @@ void Viewscreen::MovePlayer(int dir) {
 }
 
 // FUNCTION: JMAN10 0x10086d62
-BOOL Viewscreen::NewArea(int scene, int area, int dir) {
-	//((GameWindow)*GetParent())->invwnd_
+BOOL Viewscreen::NewArea(int area, int scene, int dir) {
+	if (((GameWindow *)GetParent())->m_invWnd) {
+		((GameWindow *)GetParent())->m_invWnd->FUN_1020_063a();
+	}
 
 	pos_t nextpos; //?
 	pos_t oldPos;
-	pos_t nextScene = {scene, area, dir};
+	pos_t nextScene = {area, scene, dir};
 
 	// LINE: JMAN10 0x10086db8
-	if (_current_scene) {
-		if (_current_scene->OnLeave(nextScene)) {
-			oldPos = _current_scene->m_scene.pos;
-			_current_scene->~JScene(); // odd
-			delete _current_scene;
-			_current_scene = NULL;
+	if (m_curScene) {
+		if (m_curScene->OnLeave(this, nextScene)) {
+			oldPos = m_curScene->m_scene.m_data.pos;
+			m_curScene->~JScene(); // odd
+			delete m_curScene;
+			m_curScene = NULL;
 		} else {
 			((GameWindow *)GetParent())->m_compass->Oof();
 			return FALSE;
 		}
 	} else {
-		// byte +458 = 0
-		// word +548 = 0
+		m_unk0x448 = 0;
+		m_unk0x548 = 0;
 		nextpos.scene = -1;
 		nextpos.area = -1;
 		nextpos.dir = -1;
+	}
+
+	if (((GameWindow *)GetParent())->m_bioChip) {
+		((GameWindow *)GetParent())->m_bioChip->FUN_1020_294e(nextScene);
+	}
+
+	scene_s x_scene = m_navData->FUN_1008_60c6(area, scene, dir);
+	switch (x_scene.m_data.pos.area) {
+	case 1:
+	case 2:
+	case 3:
+		// Caldoria
+		break;
+
+	case 4:
+		// TSA
+		break;
+
+	case 5:
+		// Prehistoric
+		PrehistRouter(x_scene.m_data, this, m_navData, m_compass);
+		break;
+
+	case 6:
+	case 7:
+		// Mars Colony
+		break;
+
+	case 8:
+		// Norad VI
+		break;
+
+	case 9:
+		// WSC
+		break;
 	}
 
 	return TRUE;
@@ -115,34 +153,34 @@ BOOL Viewscreen::KillTimers(void) {
 
 // FUNCTION: JMAN10 0x10088418
 void Viewscreen::OnLButtonUp(UINT nFlags, CPoint point) {
-	if (_current_scene != NULL) {
-		_current_scene->OnMouseUp(nFlags, point);
+	if (m_curScene != NULL) {
+		m_curScene->OnMouseUp(nFlags, point);
 	}
 }
 
 // FUNCTION: JMAN10 0x100883e8
 void Viewscreen::OnLButtonDown(UINT nFlags, CPoint point) {
-	if (_current_scene != NULL) {
-		_current_scene->OnMouseDown(nFlags, point);
+	if (m_curScene != NULL) {
+		m_curScene->OnMouseDown(nFlags, point);
 	}
 }
 
 // FUNCTION: JMAN10 0x10088448
 void Viewscreen::OnMouseMove(UINT nFlags, CPoint point) {
-	if (_current_scene != NULL) {
-		_current_scene->OnMouseMove(nFlags, point);
+	if (m_curScene != NULL) {
+		m_curScene->OnMouseMove(nFlags, point);
 	}
 }
 
 // FUNCTION: JMAN10 0x10088a12
 void Viewscreen::OnTimer(UINT nIDEvent) {
-	if (GetWindowTask(m_hWnd) == GetCurrentTask() && _current_scene != NULL) {
+	if (GetWindowTask(m_hWnd) == GetCurrentTask() && m_curScene != NULL) {
 		switch (nIDEvent) {
 		case 1:
-			_current_scene->Timer1();
+			m_curScene->Timer1();
 			break;
 		case 2:
-			_current_scene->Timer2();
+			m_curScene->Timer2();
 			break;
 		case 3:
 			break;

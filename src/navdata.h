@@ -7,8 +7,8 @@
 
 // SIZE 0x06
 typedef struct pos_s {
-	int scene; // 0x00
-	int area;  // 0x02
+	int area;  // 0x00
+	int scene; // 0x02
 	int dir;   // 0x04
 } pos_t;
 
@@ -17,30 +17,36 @@ typedef struct visited_s {
 	BOOL visited;
 } visited_t;
 
+// SIZE 0x08
+typedef struct nav_combined_s {
+	pos_t pos;    // 0x00
+	int class_id; // 0x06
+} nav_combined_t;
+
 // SIZE 0x2a
 typedef struct scene_s {
-	pos_t pos;      // 0x00
-	int class_id;   // 0x06
-	pos_t left;     // 0x08
-	pos_t right;    // 0x0e
-	pos_t forward;  // 0x14
-	pos_t backward; // 0x1a
-	int vid_no;     // 0x20
-	int frame_no;   // 0x22
-	int unk0x24;    // 0x24
-	int unk0x26;    // 0x26
-	int unk0x28;    // 0x28
+	nav_combined_t m_data; // 0x00
+	pos_t left;            // 0x08
+	pos_t right;           // 0x0e
+	pos_t forward;         // 0x14
+	pos_t backward;        // 0x1a
+	int vid_no;            // 0x20
+	int frame_no;          // 0x22
+	int unk0x24;           // 0x24
+	int unk0x26;           // 0x26
+	int unk0x28;           // 0x28
 
 	// 0x26 appears to be the total number of frames "connected" to this scene.
 } scene_t;
 
+// VTABLE: JMAN10 0x10086a24
 class NavData : public CObject {
 public:
 	NavData();
 	~NavData();
 
-	scene_t *FUN_1008_5ffc(scene_t *ptr, pos_t pos);
-	scene_t *FUN_1008_60c6(scene_t *ptr, int area, int scene, int dir);
+	scene_t FUN_1008_5ffc(pos_t pos);
+	scene_t FUN_1008_60c6(int area, int scene, int dir);
 	HGLOBAL GetScenesHandle();
 	UINT GetScenesCount();
 

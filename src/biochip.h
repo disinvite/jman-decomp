@@ -3,6 +3,8 @@
 
 #include <afxwin.h>
 
+#include "navdata.h"
+
 // VTABLE: JMAN10 0x102041e0
 // SIZE 0x44
 class BioChip : public CWnd {
@@ -11,6 +13,7 @@ public:
 	virtual ~BioChip();
 
 	void FUN_1020_16c0(void *);
+	void FUN_1020_294e(pos_t);
 
 	HWND m_popup;   // 0x1c
 	int m_unk0x1e;  // 0x1e

@@ -39,3 +39,8 @@ InvWnd::InvWnd(CWnd *parent, int left, int top, Inventory *p_inventory) {
 
 InvWnd::~InvWnd() {
 }
+
+// STUB: JMAN10 0x1020063a
+void InvWnd::FUN_1020_063a() {
+	// DECOMP: Is this module split across multiple sections?
+}
