@@ -204,8 +204,9 @@ void GameWindow::OnPaint() {
 
 // FUNCTION: JMAN10 0x10083b06
 void GameWindow::OnLButtonDown(UINT nFlags, CPoint point) {
-	if (m_drawLevel != 2)
+	if (m_drawLevel != 2) {
 		return;
+	}
 
 	CWnd *childWindow = ChildWindowFromPoint(point);
 	if (childWindow != this && childWindow != NULL) {
@@ -213,15 +214,17 @@ void GameWindow::OnLButtonDown(UINT nFlags, CPoint point) {
 		MapWindowPoints(childWindow, &cPt, 1);
 		childWindow->SendMessage(WM_LBUTTONDOWN, nFlags, MAKELONG(cPt.x, cPt.y));
 	} else {
-		// TODO
 		RECT rect;
+		// If the player clicked the pegasus recall button:
 		SetRect(&rect, 376, 330, 413, 366);
 		if (PtInRect(&rect, point)) {
-			// viewscreen function
-			// if (fun_1008_76a6 > 4) {
-			// biochip function?
-			// fun_1020_1864
-			// }
+			// If not in Caldoria or TSA:
+			// (i.e. if we are back in time and can recall)
+			if (m_viewScreen && m_viewScreen->GetCurrentSceneArea() > 4) {
+				// TODO: probably enum
+				// Open pegasus biochip window?
+				m_bioChip->FUN_1020_1864(2);
+			}
 		}
 	}
 }

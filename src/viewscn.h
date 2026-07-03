@@ -13,8 +13,14 @@ protected:
 
 public:
 	Viewscreen(CWnd *, int, int, NavData *, NavMap *, Inventory *, int, int, DWORD);
+
+	void MovePlayer(int);
+	BOOL NewArea(int scene, int area, int dir);
+	int GetCurrentSceneArea();
 	BOOL SetTimers();
 	BOOL KillTimers();
+
+private:
 	JScene *m_curScene;             // 0x01c
 	NavData *m_navData;             // 0x020
 	Compass *m_compass;             // 0x024
@@ -27,9 +33,6 @@ public:
 	BYTE m_unk0x449[0x548 - 0x449]; // 0x449
 	UINT m_unk0x548;                // 0x548
 	BYTE m_unk0x54a[0x550 - 0x54a]; // 0x54a
-
-	void MovePlayer(int);
-	BOOL NewArea(int scene, int area, int dir);
 
 protected:
 	afx_msg void OnLButtonUp(UINT, CPoint);
