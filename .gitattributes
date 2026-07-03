@@ -1,0 +1,5 @@
+*.md    text eol=lf diff=markdown
+*.cpp   text eol=lf diff=cpp
+*.c     text eol=lf diff=cpp
+*.h     text eol=lf diff=cpp
+*.py    text eol=lf diff=python

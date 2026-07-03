@@ -1,0 +1,88 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  fetch-deps:
+    name: Download original binaries
+    uses: ./.github/workflows/download.yml
+
+  build:
+    name: Windows
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install MSVC 1.5
+        uses: actions/checkout@v4
+        with:
+          repository: madebr/msvc152c
+          path: msvc152c
+
+      - name: Install VFW SDK
+        uses: actions/checkout@v4
+        with:
+          repository: joncampbell123/windows_sdk_collection
+          sparse-checkout: win/3.1/msvfw
+          path: winsdk
+
+      - name: Build
+        shell: cmd
+        run: |
+          python build.py
+          call .\msvc152c\bin\msvcvars.bat x86
+          set LIB=%LIB%;%cd%\winsdk\win\3.1\msvfw\lib\
+          set INCLUDE=%INCLUDE%;%cd%\winsdk\win\3.1\msvfw\include\
+          cd build
+          nmake -f makefile
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@main
+        with:
+          name: Win16
+          path: |
+            build/JMAN.EXE
+            build/JMAN.PDB
+            build/JMAN.MAP
+
+  verify:
+    name: Verify decomp
+    needs: [build, fetch-deps]
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@main
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+
+    - uses: actions/download-artifact@main
+      with:
+       name: Win16
+       path: build
+
+    - name: Restore cached original binaries
+      id: cache-original-binaries
+      uses: actions/cache/restore@v4
+      with:
+        enableCrossOsArchive: true
+        path: jman
+        key: jman
+
+    - name: Install python packages
+      shell: bash
+      run: |
+        pip install git+https://github.com/disinvite/reccmp.git@jman-temp
+
+    - name: Detect binaries
+      run: |
+        reccmp-project detect --what original   --search-path jman/10
+        reccmp-project detect --what recompiled --search-path build
+
+    - name: Summarize Accuracy
+      run: |
+        reccmp-reccmp --target JMAN10

@@ -1,0 +1,6 @@
+address,type,size,symbol
+10009108,function,188,__astart
+10009bca,function,18,??3@ZAXPEX@Z
+10009bdc,function,16,??2@ZAPEXI@Z
+10009e10,function,94,_memcpy
+10009c64,function,25,_strlen

@@ -1,0 +1,49 @@
+#ifndef INVDATA_H
+#define INVDATA_H
+
+#include <afxwin.h>
+
+// VTABLE: JMAN10 0x102845d8
+class InvData : public CObject {
+public:
+	InvData();
+	~InvData();
+
+	HGLOBAL m_glInventory;
+
+	int Count();
+};
+
+typedef struct player_item_s {
+	int id;
+	int item2;
+	int item3;
+} player_item_t;
+
+// VTABLE: JMAN10 0x102845b0
+class PlayerInventory : public CObject {
+public:
+	PlayerInventory();
+	~PlayerInventory();
+
+	UINT m_totalItems;     // 0x04
+	int m_playerItemCount; // 0x06
+	HGLOBAL m_glItems;     // 0x08
+
+	BOOL Reset(UINT);
+	BOOL HasItem(int);
+};
+
+// VTABLE: JMAN10 0x102845c4
+class Inventory : public CObject {
+public:
+	Inventory();
+
+	InvData m_invData;             // 0x04
+	PlayerInventory m_playerItems; // 0x0a
+
+	void FUN_1028_40c0();
+	BOOL PlayerHasItem(int);
+};
+
+#endif
