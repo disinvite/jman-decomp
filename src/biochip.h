@@ -13,6 +13,7 @@ public:
 	virtual ~BioChip();
 
 	void FUN_1020_16c0(void *);
+	void FUN_1020_1864(int);
 	void FUN_1020_294e(pos_t);
 
 	HWND m_popup;   // 0x1c

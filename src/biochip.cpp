@@ -59,6 +59,10 @@ BioChip::~BioChip() {
 void BioChip::FUN_1020_16c0(void *) {
 }
 
+// STUB: JMAN10 0x10201864
+void BioChip::FUN_1020_1864(int) {
+}
+
 // STUB: JMAN10 0x1020294e
 void BioChip::FUN_1020_294e(pos_t) {
 }

@@ -95,6 +95,16 @@ BOOL Viewscreen::NewArea(int area, int scene, int dir) {
 	return TRUE;
 }
 
+// FUNCTION: JMAN10 0x100876a6
+int Viewscreen::GetCurrentSceneArea() {
+	if (m_curScene) {
+		return m_curScene->m_scene.m_data.pos.area;
+	}
+
+	return 0;
+}
+
+// FUNCTION: JMAN10 0x100880d0
 BOOL Viewscreen::SetTimers(void) {
 	if (m_timer0 != NULL) {
 		::KillTimer(m_hWnd, m_timer0);
@@ -119,6 +129,7 @@ BOOL Viewscreen::SetTimers(void) {
 	return TRUE;
 }
 
+// FUNCTION: JMAN10 0x100881ac
 BOOL Viewscreen::KillTimers(void) {
 	MSG msg;
 
@@ -127,23 +138,23 @@ BOOL Viewscreen::KillTimers(void) {
 
 	if (m_timer0 != NULL) {
 		::KillTimer(m_hWnd, m_timer0);
+		m_timer0 = NULL;
 	}
-	m_timer0 = NULL;
 
 	if (m_timer1 != NULL) {
 		::KillTimer(m_hWnd, m_timer1);
+		m_timer1 = NULL;
 	}
-	m_timer1 = NULL;
 
 	if (m_timer2 != NULL) {
 		::KillTimer(m_hWnd, m_timer2);
+		m_timer2 = NULL;
 	}
-	m_timer2 = NULL;
 
 	if (m_timer3 != NULL) {
 		::KillTimer(m_hWnd, m_timer3);
+		m_timer3 = NULL;
 	}
-	m_timer3 = NULL;
 
 	while (PeekMessage(&msg, m_hWnd, WM_TIMER, WM_TIMER, PM_REMOVE))
 		;
