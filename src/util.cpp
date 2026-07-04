@@ -103,14 +103,7 @@ BOOL Startup_BasePathWarning(void) {
 
 	// if no base path found in the INI file
 	if (supportFileBasePath[0] == 0) {
-		BasePathDialog dlg;
-
-		// TODO: what is this?
-		if (kJmanConfNotFound) {
-			lstrcpy(dlg.m_headerText, kJmanConfNotFound);
-		} else {
-			lstrcpy(dlg.m_headerText, kPathConfNotFound);
-		}
+		BasePathDialog dlg(kJmanConfNotFound);
 
 		// if user didn't click okay?
 		if (dlg.DoModal() == 2) {
@@ -123,14 +116,7 @@ BOOL Startup_BasePathWarning(void) {
 
 	if (!CheckMinimumSupportFiles(supportFileBasePath)) {
 		do {
-			BasePathDialog dlg;
-
-			// TODO: what is this?
-			if (kCDNotFound) {
-				lstrcpy(dlg.m_headerText, kCDNotFound);
-			} else {
-				lstrcpy(dlg.m_headerText, kPathConfNotFound);
-			}
+			BasePathDialog dlg(kCDNotFound);
 
 			// if user didn't click okay?
 			if (dlg.DoModal() == 2) {

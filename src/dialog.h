@@ -12,6 +12,15 @@
 
 class BasePathDialog : public CDialog {
 public:
+	BasePathDialog(char *p_headerText) : CDialog(RES_BASEPATH, NULL) {
+		if (p_headerText) {
+			lstrcpy(m_headerText, p_headerText);
+		} else {
+			lstrcpy(m_headerText, "Path Configuration Not Found");
+		}
+	}
+
+private:
 	char m_headerText[256];
 
 protected:
