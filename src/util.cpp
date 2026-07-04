@@ -344,7 +344,7 @@ BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height
 		byteBuf[mysiz] = 0;
 	}
 
-	srand(LOWORD(GetCurrentTime()));
+	srand(LOWORD(GetTickCount()));
 
 	for (mysiz = 0; mysiz < n_bits; mysiz++) {
 		bitBuf[mysiz] = rand();
@@ -363,7 +363,7 @@ BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height
 
 	for (BYTE bs = 3; bs < b0; bs++) {
 
-		DWORD timein = GetCurrentTime();
+		DWORD timein = GetTickCount();
 
 		for (mysiz = 0; mysiz < n_bits; mysiz++) {
 			if (bitBuf[mysiz] <= bs)
@@ -385,12 +385,13 @@ BOOL HDC_FUN_1008_4876(HWND hwnd, HDC hdc, int dx, int dy, int width, int height
 		SetTextColor(hdc28, fk);
 		SetBkColor(hdc28, bk);
 
-		while (GetCurrentTime() < timein + (duration / b0))
+		while (GetTickCount() < timein + (duration / b0))
 			;
 	}
 
-	if (::GlobalUnlock(gBitBuf))
+	if (!::GlobalUnlock(gBitBuf)) {
 		::GlobalFree(gBitBuf);
+	}
 
 	::GlobalUnlock(gByteBuf);
 	::GlobalFree(gByteBuf);
