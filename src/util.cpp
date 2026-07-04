@@ -213,7 +213,6 @@ void HDC_FUN_1008_453e(HDC hdc, int dx, int dy, int width, int height, HBITMAP h
 }
 
 // dissolving between two images?
-// Good except for XOR. macro to invert colors?
 // FUNCTION: JMAN10 0x10084580
 BOOL HDC_FUN_1008_4580(HDC hdc, int dx, int dy, int width, int height, HDC hdc2, int sx, int sy, COLORREF color) {
 
@@ -230,8 +229,7 @@ BOOL HDC_FUN_1008_4580(HDC hdc, int dx, int dy, int width, int height, HDC hdc2,
 	BitBlt(hMemDC2, 0, 0, width, height, hdc2, sx, sy, SRCCOPY);
 
 	COLORREF bk = SetBkColor(hMemDC, color);
-	// TODO: XOR wrong here.
-	COLORREF fk = SetTextColor(hMemDC, color ^ -1);
+	COLORREF fk = SetTextColor(hMemDC, color ^ 0x00ffffff);
 
 	BitBlt(hMemDC, 0, 0, width, height, hdc2, sx, sy, SRCINVERT);
 	BitBlt(hMemDC, 0, 0, width, height, hMemDC2, 0, 0, SRCAND);
